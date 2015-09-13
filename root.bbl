@@ -1,0 +1,51 @@
+\begin{thebibliography}{1}
+
+\bibitem{Aldoma2012}
+A.~Aldoma, Zoltan-Csaba Marton, F.~Tombari, W.~Wohlkinger, C.~Potthast,
+  B.~Zeisl, R.B. Rusu, S.~Gedikli, and M.~Vincze.
+\newblock Tutorial: Point cloud library: Three-dimensional object recognition
+  and 6 dof pose estimation.
+\newblock {\em Robotics Automation Magazine, IEEE}, 19(3):80--91, Sept 2012.
+
+\bibitem{aldoma2012our}
+Aitor Aldoma, Federico Tombari, Radu~Bogdan Rusu, and Markus Vincze.
+\newblock {\em OUR-CVFH--Oriented, Unique and Repeatable Clustered Viewpoint
+  Feature Histogram for Object Recognition and 6DOF Pose Estimation}.
+\newblock Springer, 2012.
+
+\bibitem{aldoma2011cad}
+Aitor Aldoma, Markus Vincze, Nico Blodow, David Gossow, Suat Gedikli,
+  Radu~Bogdan Rusu, and Gary Bradski.
+\newblock Cad-model recognition and 6dof pose estimation using 3d cues.
+\newblock In {\em Computer Vision Workshops (ICCV Workshops), 2011 IEEE
+  International Conference on}, pages 585--592. IEEE, 2011.
+
+\bibitem{caron2014neural}
+Louis-Charles Caron, David Filliat, and Alexander Gepperth.
+\newblock Neural network fusion of color, depth and location for object
+  instance recognition on a mobile robot.
+\newblock In {\em Computer Vision-ECCV 2014 Workshops}, pages 791--805.
+  Springer, 2014.
+
+\bibitem{dai2006prospects}
+Ke-xue DAI, Guo-hui LI, Dan Tu, and Jian YUAN.
+\newblock Prospects and current studies on background subtraction techniques
+  for moving objects detection from surveillance video.
+\newblock {\em Journal of Image and Graphics}, 11(7):919--927, 2006.
+
+\bibitem{tabletop}
+Ros documentation.
+\newblock Tabletop object detector.
+
+\bibitem{rusu2009fast}
+Radu~Bogdan Rusu, Nico Blodow, and Michael Beetz.
+\newblock Fast point feature histograms (fpfh) for 3d registration.
+\newblock In {\em Robotics and Automation, 2009. ICRA'09. IEEE International
+  Conference on}, pages 3212--3217. IEEE, 2009.
+
+\bibitem{tombari2010unique}
+Federico Tombari, Samuele Salti, and Luigi Di~Stefano.
+\newblock Unique signatures of histograms for local surface description.
+\newblock In {\em Computer Vision--ECCV 2010}, pages 356--369. Springer, 2010.
+
+\end{thebibliography}

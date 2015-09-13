@@ -14,20 +14,27 @@
 % See the \addtolength command later in the file to balance the column lengths
 % on the last page of the document
 
-% The following packages can be found on http:\\www.ctan.org
 %\usepackage{graphics} % for pdf, bitmapped graphics files
-%\usepackage{epsfig} % for postscript graphics files
-%\usepackage{mathptmx} % assumes new font selection scheme installed
-%\usepackage{times} % assumes new font selection scheme installed
-%\usepackage{amsmath} % assumes amsmath package installed
-%\usepackage{amssymb}  % assumes amsmath package installed
+% The following packages can be found on http:\\www.ctan.org
+\usepackage{epsfig} % for postscript graphics files
+\usepackage{mathptmx} % assumes new font selection scheme installed
+\usepackage{times} % assumes new font selection scheme installed
+\usepackage{amsmath} % assumes amsmath package installed
+\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{graphicx}
+\usepackage{latexsym}
+%\usepackage{amsthm}
+\usepackage{fancyhdr}
+%\usepackage{algorithmic}
+\usepackage{cite}
+\usepackage{array}
 
 \title{\LARGE \bf
-Multi-Viewpoint Object Recognition 
+An Odometry-Based Reinforcement Approach for Indoor Objects and Viewpoint Recognition
 }
 
 
-\author{Luigi F. Tedesco$^{1}$ and $^{2}$% <-this % stops a space
+\author{Luigi F. Tedesco$^{1}$, C\'eline Craye$^{2}$, Jean-Fran\c{c}ois Goudou$^{3}$ and David Filliat$^{4}$% <-this % stops a space
 %\thanks{*This work was not supported by any organization}% <-this % stops a space
 \thanks{$^{1}$Luigi Franco Tedesco is an undergraduate student with Faculty of Electrical Engineering, Robotics and Artificial Intelligence,
         Thales Service, 91767 Palaiseau, France
@@ -62,13 +69,47 @@ Object recognition capability is a essential condition for giving autonomy to mo
  
  Nevertheless, ambiguous viewpoints easily trick visual descriptors reducing its recognition capability. Observing objects sequentially from distinctive points of view seems to be a natural way to deal with the problem. A solution inspired by human behavior for learning new unseen objects has been proposed by \ref{}, using key-frames and the rate of matching features with past frames, to overcome ambiguity in face recognition task. More work have been done to model objects different viewpoints perspectives summarized by Roy and al. \ref{}. 
  
-\section{Proposed Method}
+\section{PROPOSED APPROACH}
 
-We present a viewpoint multiple object recognition for indoor environments. 
+\subsection{General archtecture}
+
+Our approach was designed for robots equipped with odometric sensors and an RGB-D camera. Informations from these units are sent to a processing module that isolates objetcs from input images extracts features that describe each objetc, and compared them with a reference database stored in memory. When no matching is found between observation and the database, a new object can be added to the database and increase the robot's knowledge about the environment.
+
+The architecture of the system is illustrated in Figure \ref{fig:architecture} and explains the dependencies between the different processing modules and the input and output flow for each of them.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=8cm]{gen_arc.png}
+  \caption{General achitecture of the system}
+  \label{fig:architecture}
+\end{figure}
+
+More precisely, the processinng units takes as an input the point cloud from the RGB-D sensor as well as the odometry measure of the two wheels. The first module consists in a segmentation step that cleans up the point cloud by isolationg objects of the scene. A new point cloud for each object is then created. Those point clouds are then sent to the feature extraction module to convert them to discriminative feature histograms. On the other hand, another module converts the odometry data to a localization and displacement of the robot in an absolute reference. Each segmented object can then be localize in the same reference and sent to the recognition module. The recognition module uses both the object feature and the evolution of those features compared to the displacement of the robot to retrieve the most likely object and view.
+
 
 \subsection{Object Segmentation}
 
-The segmentation step concerns on differentiating the object from the background of raw image. Stereoscopic and infra-red cameras helped the treatment adding a new dimension to images and allowing segmentation geometrically. In our case, objects are consider as cluster of points right above the ground plan. The segmentation algorithm proposed by \ref{} consists, therefore, in using the plan equation, acquired from an initial calibration phase, and its normal to find orthogonal walls and subtract all these background elements; and  a euclidean clustering algorithm to group close points into clusters. Despite simplifying the feature extraction process, the given definition constrains the object segmentation capability.
+The segmentation step aims to differentiate objects from the background of raw images. Stereoscopic and infra-red cameras helped the treatment adding a new dimension to images and allowing segmentation geometrically. In the case where the sensor is motionless, background subtraction approach are typically used for segmentaiton \cite{dai2006prospects}. This is not applicable in our case as the robot is constantly moving in its environment. By making the hypothesis that objects are represented in the scene by as cluster of points right above the ground plan, other approaches such as \textit{Tabletop object detector} \cite{tabletop} determine the main plane of the image from depth data and search for elements in the convex hull of the plane that are not the plane itself. For indoor applications, this assumption is usually enough to isolates objects on tables or floor. 
+
+The segmentation algorithm used in this work is the one proposed by  Caron et al. \cite{caron2014neural}. The approach uses the same assumption that objects are lying on planes surfaces that can be found as the major plane of images. In our case, as the camera on the robot is always keeping the same orientation towars the floor, the floor plane equation can be fond during a calibration step and used during the whole experiment. The segmentation algorithm uses the following steps
+
+\begin{enumerate}[start=0]
+\item Calibration to obtain the floor plane equation before experiments, using RANSAC algoritm on an image where floor is the main plane.
+\end{enumerate}
+ Then for each frame of the experiment:
+\begin{enumerate}
+\item Floor subtraction from the obtained equation
+\item Points filtering if the distance to the sensor is more than 3 meters
+\item Normal surfaces of the remaining points calculation
+\item Filtering of big planes orthogonal to the ground. They are very likely to be walls
+\item Voxelization of remaining points to speed up processing
+\item Projection of those points on the floor plane
+\item Clustering of the projected points to create object candidates
+\item Elimination of clusters that are too close to borders. They might not be objects, and their missing parts are likely to badly influence the recognition.
+\item Centroid calculation of each remaining cluster (should be the objects of the image)
+\end{enumerate}
+
+Based on this algorithm, we obtain the position of each object in the camera frame, as well as the associated point cloud and normals.
 
 \subsection{Feature}
 
@@ -78,13 +119,236 @@ Among all kind of image features, the Viewpoint Feature Histogram captures the o
 
 In order to represent objects in the 3 dimensional space, an aspect graph representation merges viewpoint appearance and the necessary movement to transit between them. 
 
-\subsection{Multi-object Tracking}
+\subsection{Object representation}
 
-\subsection{Viewpoint Recognition}
+Among all kind of image features, the Viewpoint Feature Histogram captures the object geometry by estimating the angular transformation between the normal of each of the object's point and the standpoint from where it has been viewed. The interest of using such a feature is to explore the ambiguity created from objects spatial symmetry.
+
+L'objectif de notre méthode est d'avoir une reconnaissance multi-vues d'un ou plusieurs objets à la fois, capable d'intégrer le déplacement du robot pour résoudre des ambiguïtés et faux positifs. Pour incorporer les notions de vues et de transition entre elles, on utilise une représentation simple et suffisamment générale basée sur les graphes d'aspect. Le déplacement d'un état à un autre dans ce graphe est ensuite estimé par rapport au déplacement du robot. Ce système est ensuite couplé avec un dispositif de reconnaissance mono-vue classique capable de retrouver la vue la plus probable d'un objet à partir de descripteurs 3D. Une méthode de suivi des objets et un traitement probabiliste de changement de vue étant donné l'information motrice permet enfin d'augmenter le taux de reconnaissance.
+
+\label{sec:rec_mono}
+Afin de reconnaitre les objets et leurs points de vue rencontrés par le robot, nous utilisons une base de données réalisée à l'avance. Dans cette base, des descripteurs de plusieurs objets sont calculés pour plusieurs points de vues ainsi que leurs positions relatives (Plus de détails sur la construction de la base à la section \ref{sec:base_donnees}). Afin de stocker et accéder aux données des objets de la base en mémoire, nous utilisons une représentation basée sur un graphe d'aspect polaire.
+
+\subsubsection {Graphe d'aspect polaire}
+%\celine{Je trouve que cette section n'est pas très utile en fait. Tu fais référence ailleurs à un graphe d'aspect (je ne sais plus où). Si tu veux, tu peux mettre cette partie dans les annexes et y faire référence à l'endroit du rapport ou tu en parles}
+
+On considère que les objets sont décrits par deux dimensions d'information : une spatiale, représentant la position absolue de l'objet dans l'environnement ainsi que les positions relatives où l'objet a été visualisé, et une autre dimension visuelle, donnée par les descripteurs géométriques, de couleurs et de texture. On cherche à représenter cette description dans un référentiel unique. Le graphe d'aspect permet de coupler l'ensemble des images suivant ses possibles transitions spatiales, ce qui résulte dans la possibilité de construire le modèle à la volée et de jouer avec sa densité d'information - le nombre d'images intégrées au modèle.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.4\textwidth]{object_model.png}
+  \caption{Représentation des objets par un modèle polaire}
+	\label{fig:graphe_polaire}
+\end{figure}
+
+Un référentiel polaire permet d'intégrer toutes ces informations de façon à représenter la position spatiale d'où l'observation a été faite, comme représenté dans l'image \ref{fig:graphe_polaire}. Pour la construction du modèle les conventions suivantes ont été adoptées :
+\begin{itemize}
+\item l'angle zéro est attribué à la première observation
+\item L'origine du référentiel est la position globale de l’objet
+\item Les features sont labellisées d'après le déplacement angulaire
+  et la distance au centroïde de l'objet.
+\end{itemize}
+
+Une grande majorité des features visuelles ne sont pas invariantes à l'échelle, et ce d'autant plus si la résolution de l’image joue un rôle critique pour la
+détection de features, comme les patches SIFTs. Ainsi, prendre également en compte la distance à laquelle l’image a été prise peut être intéressant pour limiter la
+classification à une échelle valable.
+
+\subsubsection{Descripteurs}
+
+Le travail des descripteurs est, d'une part, d'extraire des caractéristiques intéressants de l'élément observé et, d'autre part, de réduire la
+dimensionnalité de l'espace traité, tout en restant robuste à des transformations affines et aux changements de luminosité. On s'intéresse surtout ici aux descripteurs basés sur le nuage de points des objets, bien qu'il soit possible aussi d'utiliser des descripteurs associés à la texture ou à la couleur. Les descripteurs qui nous intéressent sont des descripteurs géométriques qui essaient de traduire les idées de courbure, de forme et taille dans les histogrammes, et sont intéressants pour étudier les ambiguïtés de reconnaissance. Parmis les descripteurs 3D proposés dans la littérature, on peut citer FPFH \cite{rusu2009fast} qui est invariant par changement de point de vue, SHOT \cite{tombari2010unique} qui est un descripteur local de courbure et des descripteurs semi-globaux dédiés au traitement des occlusions, CVFH \cite{aldoma2011cad} et Our-CVFH \cite{aldoma2012our}. Une description détaillée de ces descripteurs et leurs principales différences sont expliquées dans les annexes \ref{annexe:descripteur}. Nous choisissons d'utiliser le descripteur \textit{Viewpoint Feature Histogram} - VFH, car il permet de discriminer non seulement les formes géométriques (pour la reconnaissance d'objet), mais aussi les points de vues (reconnaissance de vue).
+
+En partant du principe que la segmentation propose un découpage correct des objets, on extrait des descripteurs globaux à partir des ensembles de points proposés. Ainsi, pour chaque objet segmenté, on obtient un histogramme VFH représentatif de l'objet et de sa vue courante. D'autre part, les histogrammes VFH de tous les éléments de la base de données sont calculés au préalable pour être comparés plus rapidement.
+
+\subsubsection{Reconnaissance mono-vue}
+Le but est de retrouver l'objet et son point de vue le plus proche par rapport à la base. Pour cela, il est possible d'utiliser des algorithmes de \textit{machine learning} classiques, mais les résultats obtenus avec des réseaux de neurones n'ont pas été très concluants. Aldoma et al. \cite{Aldoma2012} suggèrent l'utilisation de la mesure de similarité entre histogrammes chi-squared, associée au classificateur \textit{k plus proches voisins}, ou K-NN. Le gros avantage de ce classificateur est l'étape d’apprentissage, qui correspond à création d’un arbre de recherche construit à partir de la comparaison croisée entre les éléments de la base. Par rapport aux données dont nous disposons, cet arbre se construit et fournit une estimation du plus proche voisin de manière presque instantannée.
+
+L'API de la librairie FLANN sur PCL permet l'utilisation directe du classificateur K-NN. L'implémentation permet l'utilisation de plusieurs définitions de distance entre histogrammes. La définition par défaut, Chi-squared, dont la formule est donnée à l'équation \ref{eq:chi-square}, semble être capable de bien différencier les histogrammes d'entrés, $H_1$ et $H_2$, et a été choisie pour notre système.
+\begin{equation}
+d(H_1, H_2) = \sum _I \frac{\left(H_1(I)-H_2(I)\right)^2}{H_1(I)}
+\label{eq:chi-square}
+\end{equation}
+
+\begin{figure}
+	\includegraphics[width=6cm]{mono_recon.png}
+	\caption{\textbf{reconnaissance mono-vue} - Résultat de la classification à partir d'une seule vue sur les objets segmentés comprenant un écran et un ventilateur. En rouge, le plan du sol et en blanc les points à plus de 3 mètre, non pris en compte dans la segmentation. On remarque également les ombres infra-rouges qui occultent les objets}
+	\label{fig:mono_recon}   
+\end{figure}
+
+\subsection{Object localization and tracking}
+
+\subsubsection{Définition des repères}
+
+Se placer dans différents repères permet d'avoir des référentiels plus naturels pour chaque type de composant du robot et pour les objets placés dans la scène. On définit quelques repères et conventions de base pour faciliter la localisation. Tout d'abord, le repère de la base du robot est orthonormal positif, où le déplacement vers l'avant correspond à l'axe $\vec{x}$, vers la gauche à l'axe $\vec{y}$ et vers le haut à l'axe $\vec{z}$. Le repère monde (ou repère absolu) est choisi comme étant le repère du robot dans sa position initiale. Un troisième référentiel utilisant les mêmes conventions positionne le capteur RGB-D par rapport au robot. Enfin, le dernier référentiel correspond au repère optique du capteur orienté selon la convention usuelle pour les images avec l'axe $\vec{x}$ orienté vers la droite, l'axe $\vec{y}$ vers le bas et enfin l'axe $\vec{z}$ vers l'avant. Ces trois repères permettent d'orienter tous les éléments aperçus par le robot dans l'environnement de façon pratique.
+
+La figure \ref{fig:reperes} permet de visualiser les différents repères utilisés.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=4cm]{reperes.png}
+  \caption{Représentation des différents repères utilisés}
+  \label{fig:reperes}
+\end{figure}
 
 
-\section{Experiments}
+Une méthode de transformation entre repères permet ensuite le passage de l'un à l'autre. On peut ainsi obtenir la position de l'objet  dans le repère global d'après sa détection par la caméra. La transformation entre une base $a$ et une autre $b$ est faite par une matrice de transformation classique, décrit par l'équation \ref{eq:mat_rotation}. 
 
+\begin{equation}
+	\mathbf{R}^{a}_{b} = 
+	\begin{bmatrix} 
+	 	\cos \theta &  -\sin \theta & \Delta x \\ \sin \theta & \cos \theta & \Delta y \\ 0 & 0 & 1
+	 \end{bmatrix}
+	\label{eq:mat_rotation}
+\end{equation}
+
+où $\theta$ équivaut à l'angle entre les deux repères et $\Delta x$ et $\Delta y$ sont les translations entre les deux origines.
+
+\subsubsection{Bases mobiles}
+
+\subsubsection{Estimation de l'odométrie}
+
+Certains robots sont dotés de capteurs capables d'estimer de façon
+approximative leurs déplacements. C'est aussi le cas du robot utilisé qui
+possède des roues codeuses capables d'estimer la rotation angulaire des
+roues. Pour le cas d'un robot différentiel, où chaque roue peut être
+commandée indépendamment, le déplacement et l'orientation suivent les équations suivantes:
+
+\begin{equation}
+	\begin{array}{rcl}
+		\delta x_t &=& \delta s_t \cdot cos(\theta_{t-1}) \\
+		\delta y_t &=& \delta s_t \cdot sin(\theta_{t-1}) \\
+		\delta \theta_t &=& \frac{\delta \omega_{g} + \delta \omega_{d}}{d_{r}}\\
+		\delta s_t &=& \frac{\delta \omega_{g} + \delta \omega_{d}}{2}						
+	\end{array}
+\end{equation}
+$\omega_g$ et $\omega_d$ sont des respectives variations angulaire des roues droites et gauches, et $d_r$ est la distance entre elles. Une intégration, au sens mathématique, de l'odométrie entre deux intervalles de temps permet de retrouver la position global du robot par l'équation \ref{eq:integ}:
+
+\begin{equation}
+	\begin{array}{rcl}
+		x_t &=& x_{t-1} + \delta x_{t} \times cos(\theta_{t-1}) - \delta y_{t} \times sin(\theta_{t-1}) \\
+		y_t &=& y_{t-1} + \delta x_{t} \times sin(\theta_{t-1}) + \delta y_{t} \times cos(\theta_{t-1}) \\
+		\theta_t &=& \theta_{t-1} + \delta\theta_{t}
+	\end{array}
+	\label{eq:integ}
+\end{equation}
+
+\subsubsection{Filtre de Kalman }
+
+Afin de pouvoir utiliser le déplacement du robot par rapport aux objets pour aider leur identification, il est d'abord nécessaire de les localiser et les suivre. À cause de la divergence de l'odométrie, l'imprécision de la segmentation et le calcul du centroïde de l'objet, la position estimée est fortement bruitée et rend le suivie et identification infaisables lorsque les objets sont trop proches. Nous utilisons donc un filtre de Kalman pour corriger cette erreur de mesure et fournir une estimation plus fiable de la position des objets.
+
+Classiquement le filtre de Kalman est mis à jour selon deux étapes : 
+
+\subsubsection{Prédiction} Une première de prédiction qui utilise un modèle de dynamique linéaire $\textbf{F}_{k}$ pour décrire l'évolution des états au long du temps avec son bruit de process $\textbf{Q}_{k}$ associé, et qui estime \textit{a priori} la covariance de l'erreur $\textbf{P}_{k|k-1}$. Formellement, on utilise les équations \ref{eq:kalman_prediction}
+
+\begin{equation}
+	\begin{array}{ccl}
+		\hat{\textbf{x}}_{k|k-1} &=& \textbf{F}_{k}\hat{\textbf{x}}_{k-1|k-1} + \textbf{B}_{k} \textbf{u}_{k-1}\\
+		\textbf{P}_{k|k-1} &=& \textbf{F}_{k} \textbf{P}_{k-1|k-1} \textbf{F}_{k}^{T} + \textbf{Q}_{k}
+	\end{array}
+	\label{eq:kalman_prediction}
+\end{equation}
+
+\noindent Où les variables sont :\\
+$\textbf{F}_{k}$ : la matrice de dynamique du système définie comme identité dans notre cas, si l'on considère que l'objet reste immobile\\
+ $\textbf{u}_{k}$ : l'entrée de commande, nulle dans notre cas\\
+ $\textbf{B}_{k}$ : la matrice qui relie l'entrée de commande $u$ à l'état $x$, nulle également\\
+$\textbf{P}_{k|k-1}$ : la matrice d'estimation a priori de la covariance de l'erreur \\
+$\textbf{Q}_{k}$ : la matrice de covariance du bruit de process, diagonale dans notre cas.\\
+
+%\noindent Avec: \\
+%$\textbf{z}_{k}$ \space \space: observation ou mesure du process à l'instant k \\
+%$\textbf{H}_{k}$ \space : matrice qui relie l'état $\textbf{x}_{k}$ à la mesure$ \textbf{z}_{k}$\\
+%$\textbf{P}_{k|k}$ : matrice d'estimation a posteriori de la covariance de l'erreur\\
+%$\textbf{R}_{k}$ \space \space : matrice de covariance du bruit de mesure
+
+\subsubsection{Innovation}
+Une deuxième mise à jour, où l'observation est incorporée dans le calcul de l'innovation, $\tilde{\textbf{y}}_{k}$, et du gain de Kalman, $\textbf{K}_{k}$ est décrite par l'équation \ref{eq:innovation}.
+
+\begin{equation}
+	\begin{array}{ccl}
+		\tilde{\textbf{y}}_{k} &=& \textbf{z}_{k} - \textbf{H}_{k}\hat{\textbf{x}}_{k|k-1} \\
+		\textbf{S}_{k} &=& \textbf{H}_{k}\textbf{P}_{k|k-1} \textbf{H}_{k}^{T}+\textbf{R}_{k} \\
+		\textbf{K}_{k} &=& \textbf{P}_{k|k-1}\textbf{H}_{k}^{T}\textbf{S}_{k}^{-1} \\
+		\hat{\textbf{x}}_{k|k} &=& \hat{\textbf{x}}_{k|k-1} + \textbf{K}_{k}\tilde{\textbf{y}}_{k} \\
+		\textbf{P}_{k|k} &=& (I - \textbf{K}_{k} \textbf{H}_{k}) \textbf{P}_{k|k-1}
+	\end{array}
+	\label{eq:innovation}
+\end{equation}
+\noindent Avec :\\
+ $\textbf{z}_{k}$ : l'observation c'est-à-dire la position de l'objet segmenté dans le repère monde\\
+$\textbf{H}_{k}$ : la matrice qui relie l'état $\textbf{x}_{k}$ à la mesure $ \textbf{z}_{k}$ : Ici, il s'agit d'une matrice identité puisque tout est représenté dans le repère monde.\\
+$\textbf{P}_{k|k}$ : la matrice d'estimation \textit{a posteriori} de la covariance de l'erreur\\
+$\textbf{R}_{k}$ : la matrice de covariance du bruit de mesure, matrice diagonale dans notre cas.
+
+\subsubsection{Suivi multi-cibles}
+Le caractère monomodal du filtre de Kalman nous contraint à ne pouvoir suivre qu'un seul objet à la fois. Pour obtenir un suivi multimodal, il faut que plusieurs filtres tournent en parallèle. Ainsi, le problème passe d’estimer la position d'un seul objet à celui de décider quelle observation appartient à quel filtre. Pour ce faire, nous définissions une matrice $M_{i,j}$ de distances entre chaque nouvelle observation $i$ et les états $j$ chaque filtre de Kalman déjà créé.
+La mise à jour de chaque filtre s'effectue de la manière suivante : Pour chaque nouvelle observation $i$, on recherche le filtre dont l'état
+Ensuite, les nouvelles observations sont utilisées pour mettre à jour les filtres de Kalman dont l'estimation est la plus proche selon cette matrice. Avant toute mise à jour, on vérifie que la distance entre l'observation et l'estimation du filtre ne dépasse pas un certain seuil. Pour chaque observation qui n'a pas pu être associée à un filtre déjà existant, on crée alors un nouveau filtre.
+
+\subsection {Reconnaissance Multi-vue}
+
+\subsubsection {Chaînes de Markov Cachées}
+
+Le déplacement physique du robot produit une séquence
+d'observations d'un même objet, sous différents points de vues. On exploite l'information odométrique entre les différentes vues pour renforcer l'estimation de la vue d'un objet. De cette manière, l'évolution de la reconnaissance au cours du temps est représentée par un processus stochastique, dont une modélisation possible consiste à le traiter de façon discrète dans un espace d'état. Ayant l'apriori que la dernière image et le dernier déplacement suffisent pour faire cette
+prédiction (c'est-à-dire en respectant la propriété de Markov de premier ordre), le processus stochastique est modélisée par une chaîne de Markov cachée.
+
+Concrètement, les états cachés correspondent à des vues d'objets présents dans la base de données et déjà stockés dans la mémoire du robot. Cela contraint le
+nombre d'états et garantie que la chaîne soit finie. Puis, une matrice de transition $a_{i,j}$ décrit l'évolution du processus. C'est cette matrice de transition qui permet de prendre en compte l'odométrie et la transition entre les vues d'un même objets. Enfin, une autre matrice, $\mathrm{P}\big( y_1 \ | \ k \big)$, dite matrice d'émission, estime la vraisemblance entre l'observation et les états de la chaîne.
+
+Plus précisément,  $a_{i,j}$ est définie en fonction de l'angle $\delta_{angle}$, calculé par \ref{eq:delta_ang} qu'a parcouru le robot par rapport à l'objet entre deux vues successives. Dans notre modèle, on considère que $a_{i,j}$ est nulle si $i$ et $j$ sont deux vues d'objets différents. Pour deux vues $i$ et $j$ d'un même objet, séparées d'une distance $d$, le poids accordé à $a_{i,j}$ sera d'autant plus fort que $\delta_{angle}$ et $d$ sont proches. D'autre part, la matrice d'émission $\mathrm{P}\big( y_1 \ | \ k \big)$ correspond à la similarité entre l'histogramme d'un objet segmenté $y$ et celui d'une vue d'objet dans la base de données $k$, normalisés par l'équation \ref{eq:dist_norm}. La similarité est calculée comme l'inverse de la distance Chi square définie à la section \ref{sec:rec_mono}.
+  \begin{equation}
+  \begin{array}{rcl}
+    \vec{d}_0 &=& p_0 - p_{obj}\\
+    \vec{d}_1 &=& p_1 - p_{obj} \\
+     \delta_{angle} &=& atan(\vec{d}_1) - atan(\vec{d}_0)
+  \end{array}
+  \label{eq:delta_ang}
+  \end{equation}
+La transformation des distances des histogrammes en probabilité est faite d'après la normalisation suivant :
+\begin{equation}
+	\mathbb{P}(y|x, database) = \frac{\sum_a d_a^x - d_y^x}{\sum_b \sum_c d_c^x - d_b^x}
+	\label{eq:dist_norm}
+\end{equation}
+où $x$ est l'image de test et y un élément de la base de données. Dans le cas du plus proches voisin, la normalisation ne prend en compte que les k plus proches histogrammes, par opposition à une approche \textit{brute force}.
+
+Une autre modélisation possible aurait été d'avoir une chaîne de Markov
+cachée distincte pour chaque objet et ensuite décider à chaque pas de temps le
+processus le plus vraisemblable. Cette modélisation peut être vue comme un sous-ensemble du cas
+précédent où les transitions entre deux objets ne sont pas
+considérées. Pourtant, il peut arriver que deux objets soit considérés comme positionnés au même endroit, ou bien que des objets mobiles fusionnent (par exemple, une personne qui viendrait s'asseoir sur une chaise, ou encore une personne
+qui commence à marcher) \footnote{Le fait de se mettre en mouvement
+  altère les formes d'une personne, ce qui rend possible sa détection
+  comme un nouvel objet.}.
+
+\subsubsection{Algorithme de Viterbi}
+
+Reste donc à extraire des informations de la modélisation Markovienne proposée.
+La séquence d'états la plus vraisemblable qui pourrait avoir géneré
+les observations  $y_1,\dots, y_T$, correspond normalement à la séquence d'objets reconnus.
+Afin de retrouver cette séquence, aussi appellée chemin, on fait 
+appel à la programmation dynamique, et plus spécifiquement à l'algorithme de Viterbi, d'où le nom chemin de Viterbi.
+L'algorithme retrouve de façon récursive l'état courant le plus probable, en
+prenant en compte seulement les observations jusqu'à un instant donné et son
+estimation aux instants antérieurs. Ceci se traduit par les équations \ref{eq:viterbi}
+
+\begin{equation}
+  \begin{array}{rcl}
+    V_{1,k} &=& \mathrm{P}\big( y_1 \ | \ k \big) \cdot \pi_k \\
+    V_{t,k} &=& \max_{x \in S} \left(  \mathrm{P}\big( y_t \ | \ k \big) \cdot a_{x,k} \cdot V_{t-1,x}\right)
+  \end{array}
+	\label{eq:viterbi}
+\end{equation}
+
+Ici, $V_{t,k}$ représente la probabilité que la séquence d'états la plus probable finisse dans l'état $k$, ayant généré les observation à l'instant $t$, tandis que $\pi_i$ représente la probabilité initiale de se retrouver en chaque état. Pour retrouver le chemin de Viterbi, il suffit de trouver le maximum de $V_{t,k}$ :
+
+\begin{equation}
+  \begin{array}{rcl}
+    x_T &=& \arg\max_{x \in S} (V_{T,x})
+  \end{array}
+\end{equation}
+
+
+\section{Experimental results}
 The proposed recognition system was deployed in a differential mobile robot, Wifibot V2, embedded with a RGB-D camera, Asus Xtion Pro Live. The algorithm architecture were implemented over ROS using PCL and OpenNi2 libraries. 
 In the interest of validating the approach, the robot was initially taught objects aspects graphs and two sets of experiments were proposed to analyze the efficiency of the algorithm in real scenarios.
 
@@ -94,158 +358,66 @@ First, twenty objects varying in size and form were selected to compose the robo
 
 \subsection{Performance testing} 
 The first experiment consist in a performance comparison between the single and multi image recognition techniques. In other words, this comparison attest whether the architecture is interesting or not, since having same performance by the cost of adding a complex post-processing and tracking modules is not interesting.
-A tour around each of the known objects 
+Tours around each of the known objects arranged in 4 different poses. 
 
-\subsection{Units}
+\subsection{Multiple object recognition}
+A second 
 
-\begin{itemize}
+To evaluate the recognition capability of our system, we use the Wifibot V2, equiped with an embedded computer. The RGB-D image aquisition is obtained with an Asus Xtion Pro Live sensor. We use ROS environment to acquire and process the data both from the camera and the odometry.
 
-\item Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses). An exception would be the use of English units as identifiers in trade, such as Ò3.5-inch disk driveÓ.
-\item Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This often leads to confusion because equations do not balance dimensionally. If you must use mixed units, clearly state the units for each quantity that you use in an equation.
-\item Do not mix complete spellings and abbreviations of units: ÒWb/m2Ó or Òwebers per square meterÓ, not Òwebers/m2Ó.  Spell out units when they appear in text: Ò. . . a few henriesÓ, not Ò. . . a few HÓ.
-\item Use a zero before decimal points: Ò0.25Ó, not Ò.25Ó. Use Òcm3Ó, not ÒccÓ. (bullet list)
+For our evaluation, twenty objects of various size and shapes (monitor, boxes, chairs, trashcans, persons, ...) were used to create the database. For each of them we moved the robot to make a complete circle around them separately. Eights view were obtained from each circle, so that the angular distance between each of them was 45 degrees. The point cloud and associated features were extracted and recorded for each view.
 
-\end{itemize}
+\subsubsection{Odometry Contribution}
+In a first evaluation, another complete circle was made around objects to evaluate the recognition capacity of the system. For each objects, we made four successive circles starting at different positions around the object. The robot was recording for each circle between 20 and 30 frames at different viewpoints of the object.
 
+La difficulté de l'évaluation vient, premièrement, du fait que la base de donnée a été réalisée avec très peu de vues, ce qui donne lieu à de mauvaises reconnaissance mono-vue lorsque le point de vue observé se situe entre deux vues de la base de données. De plus, la vitesse de déplacement peut générer des images plus floues lors des acquisitions et la modification de l'angle de la caméra\footnote{L'angle entre la base et la tête de la caméra Asus Xtion est facilement modifié.} apportent un obstacle en plus pour le \textit{matching} de descripteurs dans le classificateur K-NN.
 
-\subsection{Equations}
+Un expérience typique est illustrée dans l'image \ref{fig:resultats_expe} :
 
-The equations are an exception to the prescribed specifications of this template. You will need to determine whether or not your equation should be typed using either the Times New Roman or the Symbol font (please no other font). To create multileveled equations, it may be necessary to treat the equation as a graphic and insert it into the text after your paper is styled. Number equations consecutively. Equation numbers, within parentheses, are to position flush right, as in (1), using a right tab stop. To make your equations more compact, you may use the solidus ( / ), the exp function, or appropriate exponents. Italicize Roman symbols for quantities and variables, but not Greek symbols. Use a long dash rather than a hyphen for a minus sign. Punctuate equations with commas or periods when they are part of a sentence, as in
+\begin{figure*}
+	\includegraphics[height=6cm]{hmm_example.png}
+			\caption{\textbf{Expriment typique} - Reconnaissance multi-vue corrige des ambiguïtés malgré la mauvaise segmentation lors de la création de la base.}
+	\label{fig:resultats_expe}
+\end{figure*}
 
-$$
-\alpha + \beta = \chi \eqno{(1)}
-$$
+La première ligne correspond à la séquence d'images vues par le robot à chaque instant de temps, et donc, l'objet à être reconnu. La seconde ligne, donnée par l'algorithme de reconnaissance, équivaut à la vue la plus probable de l'objet reconnue par le K-plus proches voisins. Il est intéressant remarquer que l'invariance à rotation du descripteur trompe l'estimation de l'orientation en prenant son correspond énantiomorphe dans le premier carré rouge. Autrement, le dos du pinguin étant une grande surface presque plane, il est partiellement retiré par l'étape de segmentation. Ainsi, le nuage de points résultant de ce point de vue n'est pas suffisamment complet pour caractériser correctement l'objet, ce qui induit une mauvaise reconnaissance dans le carré bleu. Au final, on remarque que le traitement apporté par la chaîne de Markov cachée permet de corriger les problèmes d'une base de donnée relativement sparse avec des possibles erreus de segmentation, permettant la correction simultanée de la reconnaissance de l'objet et de son orientation en ligne. 
 
-Note that the equation is centered using a center tab stop. Be sure that the symbols in your equation have been defined before or immediately following the equation. Use Ò(1)Ó, not ÒEq. (1)Ó or Òequation (1)Ó, except at the beginning of a sentence: ÒEquation (1) is . . .Ó
+Le résultat de l'évaluation peut être représenté sous forme d'une courbe : le nombre d'observations pour un même objet en abscisse, par rapport aux pourcentage de reconnaissance d'objet et de vue, pour les reconnaissance mono et multi-vues.
 
-\subsection{Some Common Mistakes}
-\begin{itemize}
+\begin{figure*}
+	\includegraphics[width=\textwidth]{comp.png}
+	
+	\caption{\textbf{Résultat de l'évaluation} - Les courbes en pointillés représentent la reconnaissance basée sur une seule image (mono-vue), tandis que les courbes pleines correspondent au système multi-vues. Avec un nombre réduit d'observations, la reconnaissance mono-vue tend à être légèrement plus performante. L'écart se creuse à mesure que ne nombre d'observations augmentent, jusqu'à un écart de 33 \% une fois le tour complet de l'objet effectué, soit 92\% de réussite pour l'estimation de l'objet et 74 \% pour l'estimation de l'orientation. }		
+	\label{fig:comp}
+\end{figure*}
 
-
-\item The word ÒdataÓ is plural, not singular.
-\item The subscript for the permeability of vacuum ?0, and other common scientific constants, is zero with subscript formatting, not a lowercase letter ÒoÓ.
-\item In American English, commas, semi-/colons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
-\item A graph within a graph is an ÒinsetÓ, not an ÒinsertÓ. The word alternatively is preferred to the word ÒalternatelyÓ (unless you really mean something that alternates).
-\item Do not use the word ÒessentiallyÓ to mean ÒapproximatelyÓ or ÒeffectivelyÓ.
-\item In your paper title, if the words Òthat usesÓ can accurately replace the word ÒusingÓ, capitalize the ÒuÓ; if not, keep using lower-cased.
-\item Be aware of the different meanings of the homophones ÒaffectÓ and ÒeffectÓ, ÒcomplementÓ and ÒcomplimentÓ, ÒdiscreetÓ and ÒdiscreteÓ, ÒprincipalÓ and ÒprincipleÓ.
-\item Do not confuse ÒimplyÓ and ÒinferÓ.
-\item The prefix ÒnonÓ is not a word; it should be joined to the word it modifies, usually without a hyphen.
-\item There is no period after the ÒetÓ in the Latin abbreviation Òet al.Ó.
-\item The abbreviation Òi.e.Ó means Òthat isÓ, and the abbreviation Òe.g.Ó means Òfor exampleÓ.
-
-\end{itemize}
+La courbe de la figure \ref{fig:comp} permet de conclure, tout d'abord, que l'algorithme de reconnaissance multi-vues est plus performant que sa correspondante mono-vue lorsque le nombre d'observations augmente suffisamment.\footnote{Le fait que la reconnaissance mono-vue chute avec le nombre de vues peut être liée au fait que pour les premières secondes de l'expérience, le robot est immobile et correctement placé. Lors du déplacement du robot, les prises de vues sont globalement moins bonnes et font chuter le taux de reconnaissance.}. Dans un deuxième temps, on constate que l'estimation de l'orientation de l'objet est plus difficile à estimer que sa reconnaissance, que cela soit pour la reconnaissance mono-vue ou multi-vues.
 
 
-\section{USING THE TEMPLATE}
+%\subsection{Robustesse à l'occlusion}
 
-Use this sample document as your LaTeX source file to create your document. Save this file as {\bf root.tex}. You have to make sure to use the cls file that came with this distribution. If you use a different style file, you cannot expect to get required margins. Note also that when you are creating your out PDF file, the source file is only part of the equation. {\it Your \TeX\ $\rightarrow$ PDF filter determines the output file size. Even if you make all the specifications to output a letter file in the source - if your filter is set to produce A4, you will only get A4 output. }
+\subsection{Suivi et reconnaissance multi-cibles}
 
-It is impossible to account for all possible situation, one would encounter using \TeX. If you are using multiple \TeX\ files you must make sure that the ``MAIN`` source file is called root.tex - this is particularly important if your conference is using PaperPlaza's built in \TeX\ to PDF conversion tool.
+La deuxième expérimentent consiste à placer des objets présents dans la base de données dans une pièce et conduire le robot en faisant en sorte qu'il les regarde  sous plusieurs points de vues différents. Ce scénario est beaucoup plus complexe que celui d'avant. D'abord les objets s'occultent les uns les autres, donnant lieux à de mauvaises segmentations. Ensuite, le suivi des objets est beaucoup plus complexe, car des objets proches peuvent être confondus.
 
-\subsection{Headings, etc}
+La carte finale donnée par l'algorithme et localisant le robot ainsi que les objets dans le repère absolu est représentée à la figure \ref{fig:multi_map}. Une photo de la pièce aves les objets disposés comme dans l'expérience est affichée en \ref{fig:exp2}. %\ref{fig:exp2}.
 
-Text heads organize the topics on a relational, hierarchical basis. For example, the paper title is the primary text head because all subsequent material relates and elaborates on this one topic. If there are two or more sub-topics, the next level head (uppercase Roman numerals) should be used and, conversely, if there are not at least two sub-topics, then no subheads should be introduced. Styles named ÒHeading 1Ó, ÒHeading 2Ó, ÒHeading 3Ó, and ÒHeading 4Ó are prescribed.
-
-\subsection{Figures and Tables}
-
-Positioning Figures and Tables: Place figures and tables at the top and bottom of columns. Avoid placing them in the middle of columns. Large figures and tables may span across both columns. Figure captions should be below the figures; table heads should appear above the tables. Insert figures and tables after they are cited in the text. Use the abbreviation ÒFig. 1Ó, even at the beginning of a sentence.
-
-\begin{table}[h]
-\caption{An Example of a Table}
-\label{table_example}
-\begin{center}
-\begin{tabular}{|c||c|}
-\hline
-One & Two\\
-\hline
-Three & Four\\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
+\begin{figure*}
+	\begin{center}\includegraphics[width=10cm]{map.png}\end{center}
+	\caption{\textbf{Résultat du suivi multi-cibles} - Les points rouges correspondent aux centroïdes des objets segmentés. Chaque croix de couleur représente une estimation de position d'un filtre de Kalman, avec une couleur par filtre. En théorie, un filtre devrait être associé à chaque objet. En noir la trajectoire du robot au cours du temps.}	
+	\label{fig:multi_map}
+\end{figure*}
 
 
-   \begin{figure}[thpb]
-      \centering
-      \framebox{\parbox{3in}{We suggest that you use a text box to insert a graphic (which is ideally a 300 dpi TIFF or EPS file, with all fonts embedded) because, in an document, this method is somewhat more stable than directly inserting a picture.
-}}
-      %\includegraphics[scale=1.0]{gen_arc.png}
-      \caption{Inductance of oscillation winding on amorphous
-       magnetic core versus DC bias magnetic field}
-      \label{figurelabel}
-   \end{figure}
-   
+\begin{figure*}
+	\includegraphics[width=15cm]{multi_recon2.png}
+	\caption{\textbf{Reconnaissance Multi-cible} - Quatre des cinq objets présents dans la scène ont été correctement reconnus avec une estimation d'orientation raisonnable. Le première objet (une personne) était trop près du ventilateur, les deux ont donc été confondus dans le multi-tracking. }
+	\label{fig:recon}
+\end{figure*}
 
-Figure Labels: Use 8 point Times New Roman for Figure labels. Use words rather than symbols or abbreviations when writing Figure axis labels to avoid confusing the reader. As an example, write the quantity ÒMagnetizationÓ, or ÒMagnetization, MÓ, not just ÒMÓ. If including units in the label, present them within parentheses. Do not label axes only with units. In the example, write ÒMagnetization (A/m)Ó or ÒMagnetization {A[m(1)]}Ó, not just ÒA/mÓ. Do not label axes with a ratio of quantities and units. For example, write ÒTemperature (K)Ó, not ÒTemperature/K.Ó
-
-\section{CONCLUSIONS}
-
-A conclusion section is not required. Although a conclusion may review the main points of the paper, do not replicate the abstract as the conclusion. A conclusion might elaborate on the importance of the work or suggest applications and extensions. 
-
-\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
-                                  % on the last page of the document manually. It shortens
-                                  % the textheight of the last page by a suitable amount.
-                                  % This command does not take effect until the next page
-                                  % so it should come on the page before the last. Make
-                                  % sure that you do not shorten the textheight too much.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Les résultats de l'expérience montrent que le système fonctionne encore, même dans des cas beaucoup plus complexes. On notera toutefois une chute des taux de reconnaissance. Quelques améliorations proposées dans la section suivante pourraient être utiles pour rendre le système plus robuste:  
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{APPENDIX}
-
-Appendixes should appear before the acknowledgment.
-
-\section*{ACKNOWLEDGMENT}
-
-The preferred spelling of the word ÒacknowledgmentÓ in America is without an ÒeÓ after the ÒgÓ. Avoid the stilted expression, ÒOne of us (R. B. G.) thanks . . .Ó  Instead, try ÒR. B. G. thanksÓ. Put sponsor acknowledgments in the unnumbered footnote on the first page.
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-References are important to the reader; therefore, each citation must be complete and correct. If at all possible, references should be commonly available publications.
-
-
-
-\begin{thebibliography}{99}
-
-\bibitem{c1} G. O. Young, ÒSynthetic structure of industrial plastics (Book style with paper title and editor),Ó 	in Plastics, 2nd ed. vol. 3, J. Peters, Ed.  New York: McGraw-Hill, 1964, pp. 15Ð64.
-\bibitem{c2} W.-K. Chen, Linear Networks and Systems (Book style).	Belmont, CA: Wadsworth, 1993, pp. 123Ð135.
-\bibitem{c3} H. Poor, An Introduction to Signal Detection and Estimation.   New York: Springer-Verlag, 1985, ch. 4.
-\bibitem{c4} B. Smith, ÒAn approach to graphs of linear forms (Unpublished work style),Ó unpublished.
-\bibitem{c5} E. H. Miller, ÒA note on reflector arrays (Periodical styleÑAccepted for publication),Ó IEEE Trans. Antennas Propagat., to be publised.
-\bibitem{c6} J. Wang, ÒFundamentals of erbium-doped fiber amplifiers arrays (Periodical styleÑSubmitted for publication),Ó IEEE J. Quantum Electron., submitted for publication.
-\bibitem{c7} C. J. Kaufman, Rocky Mountain Research Lab., Boulder, CO, private communication, May 1995.
-\bibitem{c8} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ÒElectron spectroscopy studies on magneto-optical media and plastic substrate interfaces(Translation Journals style),Ó IEEE Transl. J. Magn.Jpn., vol. 2, Aug. 1987, pp. 740Ð741 [Dig. 9th Annu. Conf. Magnetics Japan, 1982, p. 301].
-\bibitem{c9} M. Young, The Techincal Writers Handbook.  Mill Valley, CA: University Science, 1989.
-\bibitem{c10} J. U. Duncombe, ÒInfrared navigationÑPart I: An assessment of feasibility (Periodical style),Ó IEEE Trans. Electron Devices, vol. ED-11, pp. 34Ð39, Jan. 1959.
-\bibitem{c11} S. Chen, B. Mulgrew, and P. M. Grant, ÒA clustering technique for digital communications channel equalization using radial basis function networks,Ó IEEE Trans. Neural Networks, vol. 4, pp. 570Ð578, July 1993.
-\bibitem{c12} R. W. Lucky, ÒAutomatic equalization for digital communication,Ó Bell Syst. Tech. J., vol. 44, no. 4, pp. 547Ð588, Apr. 1965.
-\bibitem{c13} S. P. Bingulac, ÒOn the compatibility of adaptive controllers (Published Conference Proceedings style),Ó in Proc. 4th Annu. Allerton Conf. Circuits and Systems Theory, New York, 1994, pp. 8Ð16.
-\bibitem{c14} G. R. Faulhaber, ÒDesign of service systems with priority reservation,Ó in Conf. Rec. 1995 IEEE Int. Conf. Communications, pp. 3Ð8.
-\bibitem{c15} W. D. Doyle, ÒMagnetization reversal in films with biaxial anisotropy,Ó in 1987 Proc. INTERMAG Conf., pp. 2.2-1Ð2.2-6.
-\bibitem{c16} G. W. Juette and L. E. Zeffanella, ÒRadio noise currents n short sections on bundle conductors (Presented Conference Paper style),Ó presented at the IEEE Summer power Meeting, Dallas, TX, June 22Ð27, 1990, Paper 90 SM 690-0 PWRS.
-\bibitem{c17} J. G. Kreifeldt, ÒAn analysis of surface-detected EMG as an amplitude-modulated noise,Ó presented at the 1989 Int. Conf. Medicine and Biological Engineering, Chicago, IL.
-\bibitem{c18} J. Williams, ÒNarrow-band analyzer (Thesis or Dissertation style),Ó Ph.D. dissertation, Dept. Elect. Eng., Harvard Univ., Cambridge, MA, 1993. 
-\bibitem{c19} N. Kawasaki, ÒParametric study of thermal and chemical nonequilibrium nozzle flow,Ó M.S. thesis, Dept. Electron. Eng., Osaka Univ., Osaka, Japan, 1993.
-\bibitem{c20} J. P. Wilkinson, ÒNonlinear resonant circuit devices (Patent style),Ó U.S. Patent 3 624 12, July 16, 1990. 
-
-
-
-
-
-
-\end{thebibliography}
-
-
-
-
+\bibliographystyle{plain}
+\bibliography{rapport}
 \end{document}
