@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.8.18)  12 SEP 2015 23:16
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.8.18)  13 SEP 2015 21:31
 entering extended mode
 **root.tex
 (C:\Users\-Luigi\Desktop\ieeeconf\root.tex
@@ -182,32 +182,17 @@ LaTeX Warning: Reference `' on page 1 undefined on input line 63.
 
 LaTeX Warning: Reference `' on page 1 undefined on input line 63.
 
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 96.
-Missing character: There is no Ò in font ptmr7t!
-Missing character: There is no Ó in font ptmr7t!
-Missing character: There is no Ò in font ptmr7t!
-Missing character: There is no Ó in font ptmr7t!
-Missing character: There is no Ò in font ptmr7t!
-Missing character: There is no Ó in font ptmr7t!
-Missing character: There is no Ò in font ptmr7t!
-Missing character: There is no Ó in font ptmr7t!
-Missing character: There is no Ò in font ptmr7t!
-Missing character: There is no Ó in font ptmr7t!
-Missing character: There is no Ò in font ptmr7t!
-Missing character: There is no Ó in font ptmr7t!
-Missing character: There is no Ò in font ptmr7t!
-Missing character: There is no Ó in font ptmr7t!
-Missing character: There is no Ò in font ptmr7t!
-Missing character: There is no Ó in font ptmr7t!
-Missing character: There is no Ò in font ptmr7t!
-Missing character: There is no Ó in font ptmr7t!
-Missing character: There is no Ò in font ptmr7t!
-Missing character: There is no Ó in font ptmr7t!
+
+LaTeX Warning: Reference `' on page 1 undefined on input line 71.
+
 [1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
 ]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 101.
+Missing character: There is no Ò in font ptmr7t!
+Missing character: There is no Ó in font ptmr7t!
 Missing character: There is no Ò in font ptmr7t!
 Missing character: There is no Ó in font ptmr7t!
 Missing character: There is no Ò in font ptmr7t!
@@ -311,6 +296,24 @@ Missing character: There is no Ò in font ptmr7t!
 Missing character: There is no Ó in font ptmr7t!
 Missing character: There is no Ò in font ptmr7t!
 Missing character: There is no Ó in font ptmr7t!
+Missing character: There is no Ò in font ptmr7t!
+Missing character: There is no Ó in font ptmr7t!
+Missing character: There is no Ò in font ptmr7t!
+Missing character: There is no Ó in font ptmr7t!
+Missing character: There is no Ò in font ptmr7t!
+Missing character: There is no Ó in font ptmr7t!
+Missing character: There is no Ò in font ptmr7t!
+Missing character: There is no Ó in font ptmr7t!
+Missing character: There is no Ò in font ptmr7t!
+Missing character: There is no Ó in font ptmr7t!
+Missing character: There is no Ò in font ptmr7t!
+Missing character: There is no Ó in font ptmr7t!
+Missing character: There is no Ò in font ptmr7t!
+Missing character: There is no Ó in font ptmr7t!
+Missing character: There is no Ò in font ptmr7t!
+Missing character: There is no Ó in font ptmr7t!
+Missing character: There is no Ò in font ptmr7t!
+Missing character: There is no Ó in font ptmr7t!
 Missing character: There is no Ð in font ptmr7t!
 Missing character: There is no Ð in font ptmr7t!
 Missing character: There is no Ò in font ptmr7t!
@@ -374,7 +377,7 @@ LaTeX Warning: There were undefined references.
 Here is how much of TeX's memory you used:
  885 strings out of 493921
  14452 string characters out of 3147279
- 71306 words of memory out of 3000000
+ 70306 words of memory out of 3000000
  4240 multiletter control sequences out of 15000+200000
  39844 words of font info for 78 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
@@ -390,7 +393,7 @@ ogram Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTe
 X 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
 1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri
 8a.pfb>
-Output written on root.pdf (3 pages, 126833 bytes).
+Output written on root.pdf (3 pages, 127787 bytes).
 PDF statistics:
  57 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
