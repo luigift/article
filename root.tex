@@ -68,12 +68,13 @@ Object recognition capability is a essential condition for giving autonomy to mo
 
 We present a viewpoint multiple object recognition for indoor environments. 
 
-\subsection{Segmentation}
+\subsection{Object Segmentation}
 
-First, confirm that you have the correct template for your paper size. This template has been tailored for output on the US-letter paper size. 
-It may be used for A4 paper size if the paper size setting is suitably modified.
+The segmentation step concerns on differentiating the object from the background of raw image. Stereoscopic and infra-red cameras helped the treatment adding a new dimension to images and allowing segmentation geometrically. In our case, objects are consider as cluster of points right above the ground plan. The segmentation algorithm proposed by \ref{} consists, therefore, in using the plan equation, acquired from an initial calibration phase, and its normal to find orthogonal walls and subtract all these background elements; and  a euclidean clustering algorithm to group close points into clusters. Despite simplifying the feature extraction process, the given definition constrains the object segmentation capability.
 
 \subsection{Feature}
+
+Among all kind of image features, the Viewpoint Feature Histogram captures the object geometry by estimating the angular transformation between the normal of each of the object's point and the standpoint from where it has been viewed. The interest of using such a feature is to explore the ambiguity created from objects spatial symmetry.
 
 \subsection{Aspect-Graph}
 
