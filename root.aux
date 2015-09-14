@@ -21,20 +21,26 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Single-image recognition} - Object identification for two segmented objects - a computer monitor and a small electric fan. The red points represent the floor plan and the ignored white ones exceed the three meters threshold. One could also notice the infra-red shadows created by objects that possible can occlude others}}{3}}
 \newlabel{fig:mono_recon}{{3}{3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {II-E}Multi-object Tracking}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {II-F}Reconnaissance Multi-vue}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {II-F}Odometry-Based Multi-view Recognition}{3}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {II-F.1}Hidden Markov Model}{3}}
-\newlabel{eq:delta_ang}{{1}{3}}
-\newlabel{eq:dist_norm}{{2}{3}}
+\newlabel{eq:triang}{{1}{3}}
+\newlabel{eq:transmat}{{2}{3}}
+\newlabel{eq:emismat}{{3}{3}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {II-F.2}Algorithme de Viterbi}{3}}
-\newlabel{eq:viterbi}{{3}{4}}
-\@writefile{toc}{\contentsline {section}{\numberline {III}Experimental results}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-A}Object Database}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-B}Odometry Contribution}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-C}Multi-object recognition}{4}}
+\newlabel{eq:viterbi}{{4}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Experimental results}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III-A}Object Database}{3}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Résultat de l'évaluation} - Les courbes en pointillés représentent la reconnaissance basée sur une seule image (mono-vue), tandis que les courbes pleines correspondent au système multi-vues. Avec un nombre réduit d'observations, la reconnaissance mono-vue tend à être légèrement plus performante. L'écart se creuse à mesure que ne nombre d'observations augmentent, jusqu'à un écart de 33 \% une fois le tour complet de l'objet effectué, soit 92\% de réussite pour l'estimation de l'objet et 74 \% pour l'estimation de l'orientation. }}{4}}
 \newlabel{fig:comp}{{4}{4}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Résultat du suivi multi-cibles} - Les points rouges correspondent aux centroïdes des objets segmentés. Chaque croix de couleur représente une estimation de position d'un filtre de Kalman, avec une couleur par filtre. En théorie, un filtre devrait être associé à chaque objet. En noir la trajectoire du robot au cours du temps.}}{4}}
 \newlabel{fig:multi_map}{{6}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III-B}Odometry Contribution}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III-C}Multi-object recognition}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III-D}Suivi et reconnaissance multi-cibles}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Expriment typique} - Reconnaissance multi-vue corrige des ambiguïtés malgré la mauvaise segmentation lors de la création de la base.}}{5}}
+\newlabel{fig:resultats_expe}{{5}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces \textbf  {Reconnaissance Multi-cible} - Quatre des cinq objets présents dans la scène ont été correctement reconnus avec une estimation d'orientation raisonnable. Le première objet (une personne) était trop près du ventilateur, les deux ont donc été confondus dans le multi-tracking. }}{5}}
+\newlabel{fig:recon}{{7}{5}}
 \bibstyle{plain}
 \bibdata{rapport}
 \bibcite{Aldoma2012}{1}
@@ -45,9 +51,4 @@
 \bibcite{tabletop}{6}
 \bibcite{rusu2009fast}{7}
 \bibcite{tombari2010unique}{8}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Expriment typique} - Reconnaissance multi-vue corrige des ambiguïtés malgré la mauvaise segmentation lors de la création de la base.}}{5}}
-\newlabel{fig:resultats_expe}{{5}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-D}Suivi et reconnaissance multi-cibles}{5}}
-\@writefile{toc}{\contentsline {section}{References}{5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces \textbf  {Reconnaissance Multi-cible} - Quatre des cinq objets présents dans la scène ont été correctement reconnus avec une estimation d'orientation raisonnable. Le première objet (une personne) était trop près du ventilateur, les deux ont donc été confondus dans le multi-tracking. }}{6}}
-\newlabel{fig:recon}{{7}{6}}
+\@writefile{toc}{\contentsline {section}{References}{6}}

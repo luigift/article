@@ -147,7 +147,7 @@ Usually, visual features like SIFT are scale-variant as the image resolution pla
 
 \subsection{Object Classification}
 
-The viewpoint recognition phase consist on finding the closest element in the database given a test feature to be matched. This classification problem could be solved by classic machine learning techniques. Nevertheless, the work from  Aldoma et al. \cite{Aldoma2012} suggest the use of a K-Nearest Neighbors with a chi-squared distance between histograms for classification. This classifier has the great advantage of having both classification and training stages extremely fast for the intended database size. 
+The viewpoint recognition phase consist on finding the closest element in the database given a test feature to be matched. This classification problem could be solved by classic machine learning techniques. Nevertheless, the work from  Aldoma et al. \cite{Aldoma2012} suggest the use of a K-Nearest Neighbors, K-NN, with a chi-squared distance between histograms for classification. This classifier has the great advantage of having both classification and training stages extremely fast for the intended database size. 
 
 %\begin{equation}
 %d(H_1, H_2) = \sum _I \frac{\left(H_1(I)-H_2(I)\right)^2}{H_1(I)}
@@ -161,101 +161,46 @@ The viewpoint recognition phase consist on finding the closest element in the da
 \end{figure}
 
 
-
 \subsection{Multi-object Tracking}
 
 A tracking system is necessary to follow each of the objects on sight. Imprecisions from communication delays between processing modules, segmentation and object centroid calculation call for a multi-modal filtering method for estimating their absolute position. The proposed multi-tracker runs a Kalman filter for each object where each new observation either updates the nearest existing filter or creates a new one if the closest distance to the all filter's states is bigger than a threshold.
  
-%\subsubsection{Définition des repères}
+\subsection {Odometry-Based Multi-view Recognition}
 
-%Se placer dans différents repères permet d'avoir des référentiels plus naturels pour chaque type de composant du robot et pour les objets placés dans la scène. On définit quelques repères et conventions de base pour faciliter la localisation. Tout d'abord, le repère de la base du robot est orthonormal positif, où le déplacement vers l'avant correspond à l'axe $\vec{x}$, vers la gauche à l'axe $\vec{y}$ et vers le haut à l'axe $\vec{z}$. Le repère monde (ou repère absolu) est choisi comme étant le repère du robot dans sa position initiale. Un troisième référentiel utilisant les mêmes conventions positionne le capteur RGB-D par rapport au robot. Enfin, le dernier référentiel correspond au repère optique du capteur orienté selon la convention usuelle pour les images avec l'axe $\vec{x}$ orienté vers la droite, l'axe $\vec{y}$ vers le bas et enfin l'axe $\vec{z}$ vers l'avant. Ces trois repères permettent d'orienter tous les éléments aperçus par le robot dans l'environnement de façon pratique.
-
-%La figure \ref{fig:reperes} permet de visualiser les différents repères utilisés.
-
-%\begin{figure}
-%  \centering
-%  \includegraphics[width=4cm]{reperes.png}
-%  \caption{Représentation des différents repères utilisés}
-%  \label{fig:reperes}
-%\end{figure}
-
-
-%Une méthode de transformation entre repères permet ensuite le passage de l'un à l'autre. On peut ainsi obtenir la position de l'objet  dans le repère global d'après sa détection par la caméra. La transformation entre une base $a$ et une autre $b$ est faite par une matrice de transformation classique, décrit par l'équation \ref{eq:mat_rotation}. 
-
-%\begin{equation}
-%	\mathbf{R}^{a}_{b} = 
-%	\begin{bmatrix} 
-%	 	\cos \theta &  -\sin \theta & \Delta x \\ \sin \theta & \cos \theta & \Delta y \\ 0 & 0 & 1
-%	 \end{bmatrix}
-%	\label{eq:mat_rotation}
-%\end{equation}
-
-%où $\theta$ équivaut à l'angle entre les deux repères et $\Delta x$ et $\Delta y$ sont les translations entre les deux origines.
-
-%\subsubsection{Estimation de l'odométrie}
-
-%Certains robots sont dotés de capteurs capables d'estimer de façon approximative leurs déplacements. C'est aussi le cas du robot utilisé qui possède des roues codeuses capables d'estimer la rotation angulaire des roues. Pour le cas d'un robot différentiel, où chaque roue peut être commandée indépendamment, le déplacement et l'orientation suivent les équations suivantes:
-
-%\begin{equation}
-%	\begin{array}{rcl}
-%		\delta x_t &=& \delta s_t \cdot cos(\theta_{t-1}) \\
-%		\delta y_t &=& \delta s_t \cdot sin(\theta_{t-1}) \\
-%		\delta \theta_t &=& \frac{\delta \omega_{g} + \delta \omega_{d}}{d_{r}}\\
-%		\delta s_t &=& \frac{\delta \omega_{g} + \delta \omega_{d}}{2}						
-%	\end{array}
-%\end{equation}
-%$\omega_g$ et $\omega_d$ sont des respectives variations angulaire des roues droites et gauches, et $d_r$ est la distance entre elles. Une intégration, au sens mathématique, de l'odométrie entre deux intervalles de temps permet de retrouver la position global du robot par l'équation \ref{eq:integ}:
-
-%\begin{equation}
-%	\begin{array}{rcl}
-%		x_t &=& x_{t-1} + \delta x_{t} \times cos(\theta_{t-1}) - \delta y_{t} \times sin(\theta_{t-1}) \\
-%		y_t &=& y_{t-1} + \delta x_{t} \times sin(\theta_{t-1}) + \delta y_{t} \times cos(\theta_{t-1}) \\
-%		\theta_t &=& \theta_{t-1} + \delta\theta_{t}
-%	\end{array}
-%	\label{eq:integ}
-%\end{equation}
-
-
-
-\subsection {Reconnaissance Multi-vue}
-
-Moving the robot around the environment produce a series of object observations. The idea behind our system is to find consistency between this sequence of possibly mis-recognized objects given a known displacement. In orther words, odometry information can reinforce some viewpoint candidates as they are consistent with the movements prediction... (???)
+Moving the robot around the environment produce a series of object observations. The idea behind our system is to find consistency between this sequence of possibly mis-recognized objects given a known displacement. In orther words, odometry information can reinforce some viewpoint candidates as they are consistent with the movements prediction.
 
 \subsubsection {Hidden Markov Model}
 
-Considering that a single image and the robot movement is able to predict the next view of the object, ensuring the first order Markov property and allows the stochastic process viewpoint recognition to be modeled as a Markovian process. The probability of transition between views is calculated by the triangularization of the robots initial and final position and the 
+The first order Markov property hypotheses that a single view  and the robot movement is able to predict the next view of the object, allows the stochastic process of recognizing its views to be modeled as a Markovian process.
 
-Le déplacement physique du robot produit une séquence
-d'observations d'un même objet, sous différents points de vues. On exploite l'information odométrique entre les différentes vues pour renforcer l'estimation de la vue d'un objet. De cette manière, l'évolution de la reconnaissance au cours du temps est représentée par un processus stochastique, dont une modélisation possible consiste à le traiter de façon discrète dans un espace d'état. Ayant l'apriori que la dernière image et le dernier déplacement suffisent pour faire cette
-prédiction (c'est-à-dire en respectant la propriété de Markov de premier ordre), le processus stochastique est modélisée par une chaîne de Markov cachée.
+Precisely, each hidden state correspond to a view of the object. The probability of transition between states, $\textbf{p}_{ij}^{t}$  is calculated each time a tracked object is observed accordingly to angular displacement of the robot, $\delta_{robot}$, equation \ref{eq:triang}, compared to the necessary displacement to change from view $i$ to $j$, mathematically represented in equation \ref{eq:transmat}. A small probability is attributed to improbable transitions between same object views to reinforce objects recognition rather than pose consistency. Transitions between views of different object are not allowed with zero probability of happening.
 
-Concrètement, les états cachés correspondent à des vues d'objets présents dans la base de données et déjà stockés dans la mémoire du robot. Cela contraint le
-nombre d'états et garantie que la chaîne soit finie. Puis, une matrice de transition $a_{i,j}$ décrit l'évolution du processus. C'est cette matrice de transition qui permet de prendre en compte l'odométrie et la transition entre les vues d'un même objets. Enfin, une autre matrice, $\mathrm{P}\big( y_1 \ | \ k \big)$, dite matrice d'émission, estime la vraisemblance entre l'observation et les états de la chaîne.
-
-Plus précisément,  $a_{i,j}$ est définie en fonction de l'angle $\delta_{angle}$, calculé par \ref{eq:delta_ang} qu'a parcouru le robot par rapport à l'objet entre deux vues successives. Dans notre modèle, on considère que $a_{i,j}$ est nulle si $i$ et $j$ sont deux vues d'objets différents. Pour deux vues $i$ et $j$ d'un même objet, séparées d'une distance $d$, le poids accordé à $a_{i,j}$ sera d'autant plus fort que $\delta_{angle}$ et $d$ sont proches. D'autre part, la matrice d'émission $\mathrm{P}\big( y_1 \ | \ k \big)$ correspond à la similarité entre l'histogramme d'un objet segmenté $y$ et celui d'une vue d'objet dans la base de données $k$, normalisés par l'équation \ref{eq:dist_norm}. La similarité est calculée comme l'inverse de la distance Chi square définie à la section \ref{sec:rec_mono}.
-  \begin{equation}
-  \begin{array}{rcl}
-    \vec{d}_0 &=& p_0 - p_{obj}\\
-    \vec{d}_1 &=& p_1 - p_{obj} \\
-     \delta_{angle} &=& atan(\vec{d}_1) - atan(\vec{d}_0)
-  \end{array}
-  \label{eq:delta_ang}
-  \end{equation}
-La transformation des distances des histogrammes en probabilité est faite d'après la normalisation suivant :
 \begin{equation}
-	\mathbb{P}(y|x, database) = \frac{\sum_a d_a^x - d_y^x}{\sum_b \sum_c d_c^x - d_b^x}
-	\label{eq:dist_norm}
+\delta_{robot} = atan(p_{initial} - p_{obj}) - atan( p_{final} - p_{obj})
+\label{eq:triang}
 \end{equation}
-où $x$ est l'image de test et y un élément de la base de données. Dans le cas du plus proches voisin, la normalisation ne prend en compte que les k plus proches histogrammes, par opposition à une approche \textit{brute force}.
 
-Une autre modélisation possible aurait été d'avoir une chaîne de Markov
-cachée distincte pour chaque objet et ensuite décider à chaque pas de temps le
-processus le plus vraisemblable. Cette modélisation peut être vue comme un sous-ensemble du cas
-précédent où les transitions entre deux objets ne sont pas
-considérées. Pourtant, il peut arriver que deux objets soit considérés comme positionnés au même endroit, ou bien que des objets mobiles fusionnent (par exemple, une personne qui viendrait s'asseoir sur une chaise, ou encore une personne
-qui commence à marcher) \footnote{Le fait de se mettre en mouvement
-  altère les formes d'une personne, ce qui rend possible sa détection
-  comme un nouvel objet.}.
+\begin{equation}
+    \textbf{p}_{ij}^{t} = \mathbf{P}( X_t = \theta_i | X_{t-1} = \theta_j ) = 
+   \begin{cases}
+    1, & \text{if }  \theta_i - \theta_j < \delta_{angle} \\
+    \epsilon_1, & \text{otherwise}
+\end{cases}
+	\label{eq:transmat}
+\end{equation}
+
+The emission matrix is also constructed from each new observation. The distance from the K-NN is transformed in a probability distribution of the K neighbors.
+
+\begin{equation}
+    \textbf{p}_{i}^e =  
+   \begin{cases}
+    p_k, & \text{if }  i \in D_k \\
+    \epsilon_2, & \text{otherwise}
+\end{cases}
+	\label{eq:emismat}
+\end{equation}
+
+Where $D_k$ is the set of nearest neighbors and $p_k$ is the converted histogram distance into probability.
 
 \subsubsection{Algorithme de Viterbi}
 
