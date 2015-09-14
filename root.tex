@@ -41,17 +41,17 @@ An Odometry-Based Approach for Indoor Object Viewpoint Recognition
 \author{Luigi F. Tedesco$^{1}$, C\'eline Craye$^{2}$, Jean-Fran\c{c}ois Goudou$^{3}$ and David Filliat$^{4}$% <-this % stops a space
 %\thanks{*This work was not supported by any organization}% <-this % stops a space
 \thanks{$^{1}$Luigi Franco Tedesco is an undergraduate student with Faculty of Electrical Engineering, Robotics and Artificial Intelligence,
-        Thales Service, 91767 Palaiseau, France
-        {\tt\small tedesco@ensta.fr}}%
+        ENSTA ParisTech, 91762 Palaiseau, France
+        {\tt\small tedesco@ensta-paristech.fr}}%
 \thanks{$^{2}$C\'eline Craye is with the Department of Electrical Engineering, Wright State University,
-        Dayton, OH 45435, USA
-        {\tt\small b.d.researcher@ieee.org}}%
-\thanks{$^{3}$Jean-Fran\c{c}ois Goudou is with the Department of Electrical Engineering, Wright State University,
-        Dayton, OH 45435, USA
-        {\tt\small b.d.researcher@ieee.org}}%
+        ENSTA ParisTech, 91762 Palaiseau, France
+        {\tt\small celine.craye@ensta-paristech.fr }}%
+\thanks{$^{3}$Jean-Fran\c{c}ois Goudou is with the Department of Electrical Engineering, Thales Theresis,
+         Thales Service, 91767 Palaiseau, France
+        {\tt\small jean-francois.goudou@thalesgroup.com}}%
 \thanks{$^{4}$David Filliat is with the Department of Electrical Engineering, Wright State University,
-        Dayton, OH 45435, USA
-        {\tt\small b.d.researcher@ieee.org}}%
+        ENSTA ParisTech, 91762 Palaiseau, France
+        {\tt\small david.filliat@ensta-paristech.fr }}%
 }
 
 \begin{document}
@@ -204,19 +204,12 @@ Where $D_k$ is the set of nearest neighbors and $p_k$ is the converted histogram
 
 \subsubsection{Algorithme de Viterbi}
 
-Reste donc à extraire des informations de la modélisation Markovienne proposée.
-La séquence d'états la plus vraisemblable qui pourrait avoir géneré
-les observations  $y_1,\dots, y_T$, correspond normalement à la séquence d'objets reconnus.
-Afin de retrouver cette séquence, aussi appellée chemin, on fait 
-appel à la programmation dynamique, et plus spécifiquement à l'algorithme de Viterbi, d'où le nom chemin de Viterbi.
-L'algorithme retrouve de façon récursive l'état courant le plus probable, en
-prenant en compte seulement les observations jusqu'à un instant donné et son
-estimation aux instants antérieurs. Ceci se traduit par les équations \ref{eq:viterbi}
+The viterbi algorithm is used to find the most likely path taking into account all possible states transitions and the probability of being recognized by single view pipeline. The viterbi path coincides with the sequence of recognized view for each observation. \ref{eq:viterbi}.
 
 \begin{equation}
   \begin{array}{rcl}
-    V_{1,k} &=& \mathrm{P}\big( y_1 \ | \ k \big) \cdot \pi_k \\
-    V_{t,k} &=& \max_{x \in S} \left(  \mathrm{P}\big( y_t \ | \ k \big) \cdot a_{x,k} \cdot V_{t-1,x}\right)
+    V_{1,k} &=& \textbf{p}_{i}^e \cdot \pi_k \\
+    V_{t,k} &=& \max_{x \in S} \left(  \textbf{p}_{i}^e \cdot \textbf{p}_{ij}^{t} \cdot V_{t-1,x}\right)
   \end{array}
 	\label{eq:viterbi}
 \end{equation}
