@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.8.18)  13 SEP 2015 22:30
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.8.18)  14 SEP 2015 09:01
 entering extended mode
 **root.tex
 (C:\Users\-Luigi\Desktop\ieeeconf\root.tex
@@ -285,19 +285,23 @@ Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \extratabsurround=\skip59
 \backup@length=\skip60
 )
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\enumerate.sty"
+Package: enumerate 1999/03/05 v3.00 enumerate extensions (DPC)
+\@enLab=\toks22
+)
 (C:\Users\-Luigi\Desktop\ieeeconf\root.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
 
 ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -306,482 +310,143 @@ LaTeX Font Info:    ... okay on input line 48.
 \scratchbox=\box29
 \nofMPsegments=\count105
 \nofMParguments=\count106
-\everyMPshowfont=\toks22
+\everyMPshowfont=\toks23
 \MPscratchCnt=\count107
 \MPscratchDim=\dimen129
 \MPnumerator=\count108
 \makeMPintoPDFobject=\count109
-\everyMPtoPDFconversion=\toks23
+\everyMPtoPDFconversion=\toks24
 )
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 52.
-LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 52
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 59.
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 59
 .
  ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1ztmcm.fd"
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 52
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 59
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omlztmcm.fd"
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 52
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 59
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omsztmcm.fd"
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 52
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 59
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omxztmcm.fd"
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8.14006> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 52.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6.60007> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 52.
-LaTeX Font Info:    Try loading font information for U+lasy on input line 52.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 59.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ulasy.fd"
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 52.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 52.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 59.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1pcr.fd"
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Underfull \hbox (badness 6094) in paragraph at lines 52--52
-[][][]$[]$\OT1/ptm/m/n/8 Bernard D. Re-searcher is with the De-part-ment of Ele
-c-tri-cal
+Underfull \hbox (badness 10000) in paragraph at lines 59--59
+[][][]$[]$\OT1/ptm/m/n/8 C[]eline Craye is with the De-part-ment of Elec-tri-ca
+l En-gi-
  []
 
 
-Underfull \hbox (badness 8056) in paragraph at lines 52--52
+Underfull \hbox (badness 10000) in paragraph at lines 59--59
+\OT1/ptm/m/n/8 neer-ing, Wright State Uni-ver-sity, Day-ton, OH 45435, USA
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 59--59
+[][][]$[]$\OT1/ptm/m/n/8 Jean-Fran[]ois Goudou is with the De-part-ment of Elec
+-tri-cal
+ []
+
+
+Underfull \hbox (badness 8056) in paragraph at lines 59--59
 \OT1/ptm/m/n/8 En-gi-neer-ing, Wright State Uni-ver-sity, Day-ton, OH 45435, US
 A
  []
 
 
-LaTeX Warning: Reference `' on page 1 undefined on input line 60.
+Underfull \hbox (badness 10000) in paragraph at lines 59--59
+[][][]$[]$\OT1/ptm/m/n/8 David Fil-liat is with the De-part-ment of Elec-tri-ca
+l En-gi-
+ []
 
 
-LaTeX Warning: Reference `' on page 1 undefined on input line 68.
+Underfull \hbox (badness 10000) in paragraph at lines 59--59
+\OT1/ptm/m/n/8 neer-ing, Wright State Uni-ver-sity, Day-ton, OH 45435, USA
+ []
 
 
-LaTeX Warning: Reference `' on page 1 undefined on input line 68.
+LaTeX Warning: Reference `' on page 1 undefined on input line 67.
 
 
-LaTeX Warning: Reference `' on page 1 undefined on input line 68.
+LaTeX Warning: Reference `' on page 1 undefined on input line 75.
 
 
-LaTeX Warning: Reference `' on page 1 undefined on input line 68.
+LaTeX Warning: Reference `' on page 1 undefined on input line 75.
 
 
-LaTeX Warning: Reference `' on page 1 undefined on input line 68.
+LaTeX Warning: Reference `' on page 1 undefined on input line 75.
 
 
-LaTeX Warning: Reference `' on page 1 undefined on input line 68.
+LaTeX Warning: Reference `' on page 1 undefined on input line 75.
 
 
-LaTeX Warning: Reference `' on page 1 undefined on input line 68.
+LaTeX Warning: Reference `' on page 1 undefined on input line 75.
 
 
-LaTeX Warning: Reference `' on page 1 undefined on input line 70.
+LaTeX Warning: Reference `' on page 1 undefined on input line 75.
 
 
-LaTeX Warning: Reference `' on page 1 undefined on input line 70.
+LaTeX Warning: Reference `' on page 1 undefined on input line 75.
+
+
+LaTeX Warning: Reference `' on page 1 undefined on input line 77.
+
+
+LaTeX Warning: Reference `' on page 1 undefined on input line 77.
 
 <gen_arc.png, id=1, 1650.165pt x 702.625pt>
 File: gen_arc.png Graphic file (type png)
  <use gen_arc.png>
-Package pdftex.def Info: gen_arc.png used on input line 82.
-(pdftex.def)             Requested size: 227.62204pt x 96.91946pt.
+Package pdftex.def Info: gen_arc.png used on input line 93.
+(pdftex.def)             Requested size: 505.89pt x 215.39923pt.
  [1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
- <C:/Users/-Luigi/Desktop/ieeeconf/gen_arc.png>]
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ï in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
+]
 
+LaTeX Warning: Reference `' on page 2 undefined on input line 127.
 
-LaTeX Warning: Reference `sec:base_donnees' on page 2 undefined on input line 1
-29.
-
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
 <object_model.png, id=11, 154.176pt x 115.632pt>
 File: object_model.png Graphic file (type png)
  <use object_model.png>
-Package pdftex.def Info: object_model.png used on input line 138.
-(pdftex.def)             Requested size: 202.3529pt x 151.76662pt.
+Package pdftex.def Info: object_model.png used on input line 135.
+(pdftex.def)             Requested size: 151.76854pt x 113.82849pt.
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ç in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 145.
 
-[2 <C:/Users/-Luigi/Desktop/ieeeconf/object_model.png>]
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ’ in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ï in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ’ in font ptmr7t!
-Missing character: There is no ô in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no ’ in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ê in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ï in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-
-
-LaTeX Warning: Reference `annexe:descripteur' on page 3 undefined on input line
- 158.
-
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ê in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ’ in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ’ in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ê in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-<mono_recon.png, id=15, 640.3925pt x 342.27875pt>
+<mono_recon.png, id=12, 640.3925pt x 342.27875pt>
 File: mono_recon.png Graphic file (type png)
  <use mono_recon.png>
-Package pdftex.def Info: mono_recon.png used on input line 172.
-(pdftex.def)             Requested size: 170.71652pt x 91.24136pt.
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmri7t!
-Missing character: There is no è in font ptmri7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ê in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ç in font ptmr7t!
-Missing character: There is no ç in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-
-<reperes.png, id=17, 517.935pt x 317.5062pt>
-File: reperes.png Graphic file (type png)
- <use reperes.png>
-Package pdftex.def Info: reperes.png used on input line 187.
-(pdftex.def)             Requested size: 113.81102pt x 69.76921pt.
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
- [3 <C:/Users/-Luigi/Desktop/ieeeconf/mono_recon.png> <C:/Users/-Luigi/Desktop/
-ieeeconf/reperes.png>]
-Missing character: There is no ù in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmri7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ç in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-Missing character: There is no ê in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no À in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ï in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmri7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-
-Underfull \hbox (badness 10000) in paragraph at lines 250--256
-
- []
-
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no ’ in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ê in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no î in font ptmri7t!
-Missing character: There is no é in font ptmri7t!
+Package pdftex.def Info: mono_recon.png used on input line 158.
+(pdftex.def)             Requested size: 246.11615pt x 131.54008pt.
+ [2 <C:/Users/-Luigi/Desktop/ieeeconf/gen_arc.png> <C:/Users/-Luigi/Desktop/iee
+econf/object_model.png>]
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no ê in font ptmr7t!
@@ -807,11 +472,6 @@ Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no î in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
-
-Underfull \hbox (badness 6461) in paragraph at lines 291--294
-\OT1/ptm/m/n/10 odomtrique en-tre les diffrentes vues pour ren-forcer
- []
-
 Missing character: There is no è in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
@@ -824,6 +484,8 @@ Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no î in font ptmr7t!
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 233.
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
@@ -831,7 +493,6 @@ Missing character: There is no ê in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no î in font ptmr7t!
-[4]
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
@@ -906,6 +567,7 @@ Missing character: There is no à in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
+ [3 <C:/Users/-Luigi/Desktop/ieeeconf/mono_recon.png>]
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
@@ -918,36 +580,54 @@ Missing character: There is no à in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
- [5]
+
+<comp.png, id=28, 1445.4pt x 473.51906pt>
+File: comp.png Graphic file (type png)
+ <use comp.png>
+Package pdftex.def Info: comp.png used on input line 307.
+(pdftex.def)             Requested size: 246.11615pt x 80.62723pt.
+Missing character: There is no é in font ptmb7t!
+Missing character: There is no é in font ptmb7t!
+Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no è in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
 Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
 Missing character: There is no ê in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
+Missing character: There is no è in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no à in font ptmr7t!
+Missing character: There is no à in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
- <hmm_example.png, id=36, 2511.3825pt x 811.53188pt>
+Missing character: There is no é in font ptmb7t!
+Missing character: There is no é in font ptmb7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no è in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no à in font ptmr7t!
+Missing character: There is no ê in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no è in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no à in font ptmr7t!
+Missing character: There is no à in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+
+<hmm_example.png, id=29, 2511.3825pt x 811.53188pt>
 File: hmm_example.png Graphic file (type png)
-
-<use hmm_example.png>
-Package pdftex.def Info: hmm_example.png used on input line 378.
+ <use hmm_example.png>
+Package pdftex.def Info: hmm_example.png used on input line 314.
 (pdftex.def)             Requested size: 528.28728pt x 170.71652pt.
 
-Overfull \hbox (22.39728pt too wide) in paragraph at lines 378--379
+Overfull \hbox (22.39728pt too wide) in paragraph at lines 314--315
 [][] 
  []
 
@@ -955,6 +635,48 @@ Missing character: There is no ï in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
+<map.png, id=30, 482.0409pt x 375.804pt>
+File: map.png Graphic file (type png)
+ <use map.png>
+Package pdftex.def Info: map.png used on input line 322.
+(pdftex.def)             Requested size: 246.11615pt x 191.87541pt.
+Missing character: There is no é in font ptmb7t!
+Missing character: There is no ï in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no ê in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no à in font ptmr7t!
+Missing character: There is no é in font ptmb7t!
+Missing character: There is no ï in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no ê in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no à in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no è in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no è in font ptmr7t!
+Missing character: There is no à in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no ê in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
+Missing character: There is no é in font ptmr7t!
 Missing character: There is no è in font ptmr7t!
 Missing character: There is no à in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
@@ -986,45 +708,8 @@ Missing character: There is no ê in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no ê in font ptmr7t!
-<comp.png, id=37, 1154.06157pt x 420.82219pt>
-File: comp.png Graphic file (type png)
- <use comp.png>
-Package pdftex.def Info: comp.png used on input line 388.
-(pdftex.def)             Requested size: 505.89pt x 184.46884pt.
-Missing character: There is no é in font ptmb7t!
-Missing character: There is no é in font ptmb7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no ê in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmb7t!
-Missing character: There is no é in font ptmb7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no ê in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no è in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
+ [4 <C:/Users/-Luigi/Desktop/ieeeconf/comp.png (PNG copy)> <C:/Users/-Luigi/Des
+ktop/ieeeconf/map.png>]
 Missing character: There is no ê in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no è in font ptmr7t!
@@ -1054,34 +739,12 @@ Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 
 
-LaTeX Warning: Reference `fig:exp2' on page 6 undefined on input line 403.
+LaTeX Warning: Reference `fig:exp2' on page 5 undefined on input line 348.
 
-<map.png, id=38, 482.0409pt x 375.804pt>
-File: map.png Graphic file (type png)
- <use map.png>
-Package pdftex.def Info: map.png used on input line 406.
-(pdftex.def)             Requested size: 284.52756pt x 221.81992pt.
-Missing character: There is no é in font ptmb7t!
-Missing character: There is no ï in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ê in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmb7t!
-Missing character: There is no ï in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ê in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-
-<multi_recon2.png, id=39, 1049.9225pt x 1003.75pt>
+<multi_recon2.png, id=35, 1049.9225pt x 1003.75pt>
 File: multi_recon2.png Graphic file (type png)
  <use multi_recon2.png>
-Package pdftex.def Info: multi_recon2.png used on input line 413.
+Package pdftex.def Info: multi_recon2.png used on input line 353.
 (pdftex.def)             Requested size: 426.79134pt x 408.01749pt.
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no è in font ptmr7t!
@@ -1122,22 +785,20 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the US letter (8.5in X 11in) paper size.
 
-[6] [7 <C:/Users/-Luigi/Desktop/ieeeconf/hmm_example.png> <C:/Users/-Luigi/Desk
-top/ieeeconf/comp.png>] [8 <C:/Users/-Luigi/Desktop/ieeeconf/map.png>] [9 <C:/U
-sers/-Luigi/Desktop/ieeeconf/multi_recon2.png>]
-(C:\Users\-Luigi\Desktop\ieeeconf\root.aux)
+[5 <C:/Users/-Luigi/Desktop/ieeeconf/hmm_example.png>] [6 <C:/Users/-Luigi/Desk
+top/ieeeconf/multi_recon2.png>] (C:\Users\-Luigi\Desktop\ieeeconf\root.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 3128 strings out of 493921
- 42996 string characters out of 3147279
- 105730 words of memory out of 3000000
- 6352 multiletter control sequences out of 15000+200000
- 70135 words of font info for 154 fonts, out of 3000000 for 9000
+ 3131 strings out of 493921
+ 43042 string characters out of 3147279
+ 102375 words of memory out of 3000000
+ 6357 multiletter control sequences out of 15000+200000
+ 68271 words of font info for 151 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 34i,11n,43p,1297b,304s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 34i,11n,43p,1213b,304s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program File
 s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX
  2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fon
@@ -1149,9 +810,9 @@ ogram Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX
  2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
 urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a
 .pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on root.pdf (9 pages, 5116556 bytes).
+Output written on root.pdf (6 pages, 5072822 bytes).
 PDF statistics:
- 95 PDF objects out of 1000 (max. 8388607)
+ 82 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
