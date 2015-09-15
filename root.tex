@@ -30,6 +30,8 @@
 \usepackage{array}
 \usepackage{enumerate}
 
+\newcommand{\argmin}{\arg\!\min}
+
 \title{\LARGE \bf
 An Odometry-Based Approach for Indoor Object Viewpoint Recognition
 }
@@ -40,16 +42,16 @@ An Odometry-Based Approach for Indoor Object Viewpoint Recognition
 
 \author{Luigi F. Tedesco$^{1}$, C\'eline Craye$^{2}$, Jean-Fran\c{c}ois Goudou$^{3}$ and David Filliat$^{4}$% <-this % stops a space
 %\thanks{*This work was not supported by any organization}% <-this % stops a space
-\thanks{$^{1}$Luigi Franco Tedesco is an undergraduate student with Faculty of Electrical Engineering, Robotics and Artificial Intelligence,
+\thanks{$^{1}$Luigi Franco Tedesco is a Master Student with Faculty of Electrical Engineering, Robotics and Artificial Intelligence,
         ENSTA ParisTech, 91762 Palaiseau, France
-        {\tt\small tedesco@ensta-paristech.fr}}%
-\thanks{$^{2}$C\'eline Craye is with the Department of Electrical Engineering, Wright State University,
+        {\tt\small tedesco@ensta.fr}}%
+\thanks{$^{2}$C\'eline Craye is a Doctoral Student with Faculty of Visual Saliency, Computer Vision and Developmental Robotics,
         ENSTA ParisTech, 91762 Palaiseau, France
-        {\tt\small celine.craye@ensta-paristech.fr }}%
-\thanks{$^{3}$Jean-Fran\c{c}ois Goudou is with the Department of Electrical Engineering, Thales Theresis,
+        {\tt\small celine.craye@ensta-paristech.fr  }}%
+\thanks{$^{3}$Jean-Fran\c{c}ois Goudou is the R\&I Project Manager at the VisionLab, ThereSiS,
          Thales Service, 91767 Palaiseau, France
         {\tt\small jean-francois.goudou@thalesgroup.com}}%
-\thanks{$^{4}$David Filliat is with the Department of Electrical Engineering, Wright State University,
+\thanks{$^{4}$David Filliat is with the Computer Science and System Ingeneering Laboratory,
         ENSTA ParisTech, 91762 Palaiseau, France
         {\tt\small david.filliat@ensta-paristech.fr }}%
 }
@@ -64,7 +66,7 @@ An Odometry-Based Approach for Indoor Object Viewpoint Recognition
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
-Object recognition capability is a essential condition for giving autonomy to mobiles robots in human made environment. However, achieving this goal by means of visually representing objects is a hard task \ref{} and using all possible sources of information is a must. Here we present a procedure to incorporate the notion of continuity and overcome ambiguous points of view. By observing objects from different perspectives bound with a Markovian modeling of the stochastic processes of recognizing each of the objects viewpoint, the algorithm copes with a sparse database, blurred images from motion and object spatial symmetry, to recognize and estimate objects 6-dof pose. A multi-modal Kalman based tracking was also implemented in order to recognize multiple objects simultaneously. The approach was tested in a mobile platform and the comparison between the single viewed and the proposed recognition gave promising results, reinforcing the proposal of blending odometry and recognition. 
+Object recognition capability is a essential condition for giving autonomy to mobiles robots in human made environment. However, achieving this goal by means of visually representing objects is a hard task and using all possible sources of information is a must. Here we present a procedure to incorporate the notion of continuity and overcome ambiguous points of view. By observing objects from different perspectives bound with a Markovian modeling of the stochastic processes of recognizing each of the objects viewpoint, the algorithm copes with a sparse database, blurred images from motion and object spatial symmetry, to recognize objects and estimate its viewpoint. A multi-modal Kalman based tracking was also implemented in order to recognize multiple objects simultaneously. The approach was tested in a mobile platform and the comparison between the single viewed and the proposed recognition gave promising results, reinforcing the proposal of blending odometry and recognition. 
 
 \end{abstract}
 
@@ -72,7 +74,7 @@ Object recognition capability is a essential condition for giving autonomy to mo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{INTRODUCTION}
 
- The vast majority of the literature focus on single image object visual recognition for helping robots in tasks such as semantic navigation \ref{}, pose estimation for grasping \ref{} and environmental search \ref{}. Typically, a set of features is extracted from a segmented object candidate and, subsequently, compared to a database of priori known objects. Extensive work have been done in order to increase efficiency in each one of the sub-processing steps. Among them : segmentations methods using range cameras, features that describe color and texture \ref{}, geometry \ref{}, contours \ref{}, besides classifiers and matching techniques. Alternatively, a deep neural architecture \ref{} can perform a direct object visual classification after a delicate training phase. However, the classic recognition pipeline seems to be more natural and simple to be implemented with a straight-forward training, still having reasonable results.
+ The vast majority of the literature focus on single image object visual recognition for helping robots in tasks such as semantic navigation \ref{}, pose estimation for grasping \ref{} and environmental search \ref{kragic2009object, ali2014contextual}. Typically, a set of features is extracted from a segmented object candidate and, subsequently, compared to a database of priori known objects. Extensive work have been done in order to increase efficiency in each one of the sub-processing steps. Among them : segmentations methods using range cameras, features that describe color and texture \ref{}, geometry \ref{}, contours \ref{}, besides classifiers and matching techniques. Alternatively, a deep neural architecture \ref{} can perform a direct object visual classification after a delicate training phase. However, the classic recognition pipeline seems to be more natural and simple to be implemented with a straight-forward training, still having reasonable results.
  
  Nevertheless, ambiguous viewpoints easily trick visual descriptors reducing its recognition capability. Observing objects sequentially from distinctive points of view seems to be a natural way to deal with the problem. A solution inspired by human behavior for learning new unseen objects has been proposed by \ref{}, using key-frames and the rate of matching features with past frames, to overcome ambiguity in face recognition task. More work have been done to model objects different viewpoints perspectives summarized by Roy and al. \ref{}. 
  
@@ -90,143 +92,161 @@ The architecture of the system is illustrated in Figure \ref{fig:architecture} a
 
 \begin{figure*}
   \centering
-  \includegraphics[width=\textwidth]{gen_arc.png}
+  \includegraphics[width=\textwidth]{genarc.pdf}
   \caption{General achitecture of the system}
   \label{fig:architecture}
 \end{figure*}
 
-More precisely, the processing units takes as input the point cloud from the RGB-D sensor as well as the odometry measure of the two wheels. The first module consists in a segmentation step that cleans up the point cloud by isolating objects of the scene into clusters of points. Those clusters are then sent to the feature extraction module to convert them to discriminative description histograms. Simultaneously, a cartography module converts the odometry data and the segmented object image position into the localization of scene elements in the world referential. Finally, the recognition module uses both the object feature and the evolution of those features compared to the displacement of the robot to retrieve the most likely object and view.
+Precisely, the processing units takes as input the point cloud from the RGB-D sensor as well as the odometry measure of the two wheels. The first module consists in a segmentation step that cleans up the point cloud by isolating objects of the scene into clusters of points. Those clusters are then sent to the feature extraction module to convert them to discriminative description histograms. Simultaneously, a cartography module converts the odometry data and the segmented object image position into the localization of scene elements in the world referential. Finally, the recognition module uses both the object feature and the evolution of those features compared to the displacement of the robot to retrieve the most likely object and view.
 
 \subsection{Object Segmentation}
 
 The segmentation step aims to differentiate objects from the background of raw images. Stereoscopic and infra-red cameras helped the treatment adding a new dimension to images, allowing segmentation geometrically. In the case of motionless sensors, statical background subtraction approach are typically used for segmentaiton \cite{dai2006prospects}. This is not applicable in our case as the robot is constantly moving in its environment. By making the hypothesis that objects are represented in the scene as cluster of points right above a main plan, approaches such as \textit{Tabletop object detector} \cite{tabletop} and Caron et al. \cite{caron2014neural} determine the main plane's convex hull and search for objects clusters inside it. The later algorithm also removes plans orthogonal to the ground, considered as walls, and is more suitable for finding objects placed on ground level in indoor environments, therefore, explaining our choice for it. Furthermore, in our robot assemble, the camera is always keeping the same orientation towards the floor, in this manner, its plan equation can be estimated once during a calibration step and used during the whole experiment. 
+Based on this algorithm, we obtain the position of each object in the camera frame, as well as the associated point cloud and normals.
 
-%The segmentation algorithm uses the following steps
-%\begin{enumerate}
-%\item[0] Calibration to obtain the floor plane equation before experiments, using RANSAC algoritm on an image where floor is the main plane.
-%\end{enumerate}
-% Then for each frame of the experiment:
-%\begin{enumerate}
-%\item Floor subtraction from the obtained equation
-%\item Points filtering if the distance to the sensor is more than 3 meters
-%\item Normal surfaces of the remaining points calculation
-%\item Filtering of big planes orthogonal to the ground. They are very likely to be walls
-%\item Voxelization of remaining points to speed up processing
-%\item Projection of those points on the floor plane
-%\item Clustering of the projected points to create object candidates
-%\item Elimination of clusters that are too close to borders. They might not be objects, and their missing parts are likely to badly influence the recognition.
-%\item Centroid calculation of each remaining cluster (should be the objects of the image)
-%\end{enumerate}
-%Based on this algorithm, we obtain the position of each object in the camera frame, as well as the associated point cloud and normals.
+\subsection{Object Representation}
+The segmentation module provides us a point cloud for each isolated object in the observed frame. This raw information is however not enough to efficiently discriminate the observed object and retrieve the associated view in the database. From the point cloud, we then extract two types of information. The first dimension of information relates to its position in the environment. This cartographic data allows the robot to track objects while moving around the scene, consequently, associating multiple views of it. A second dimension that can be translated in terms of visual and geometrical features is related to intrinsic characteristic of the objects capable of differentiating them from one another.
 
-\subsection{Object representation}
+\subsubsection{Features} Visual features used for the task of object recognition are either RGB-based or geometrical. Among RGB features, bag of words or SIFTs or color histograms are commonly used \cite{}. Deep features \cite{zhou2014learning} have also received a lot of attention recently, but their high dimensionality requires high computation performance to be processed in real time. Geometrical features based on point clouds are either local descriptor, such as SHOT \cite{tombari2010unique}, semi-global such as CVFH \cite{aldoma2011cad, aldoma2012our} descriptors or global \cite{rusu2009fast, rusu2010fast}. 
 
-The definition of object used in segmentation is enough for separating them from the environment, however for a more complex classification task, its unique characteristics must be extracted. The first dimension of information relates to its position in the environment. This cartographic data allows the robot to track objects while moving around the scene, consequently associating multiple views of it. A second dimension concerns the objects' intrinsic characteristic capable of differentiating them from one another that can be translated in terms of visual and geometrical features.
+In our system, a global descriptor for each view is the easiest and best suited approach, as we need a way to efficiently compare a large number of view between a database and the current observation. We also restrict our descriptor to geometrical features that we found more discriminative than visual ones. Among global geometrical features, we selected the Viewpoint Feature Histogram \ref{rusu2010fast} - VFH. This feature captures in a single histogram the geometry of the object by estimating the angular transformation between the normal of each of the its points and the standpoint from where it has been viewed. It is therefore discriminative of the object, but also the viewpoint at which it was observed. 
 
-\subsubsection{Features} The concept of features tries to transpose those intrinsic characteristics from objects into a lower dimension space. At the same time, they are required to be stable under environmental changes and affine transformations for being truly representative.
-Several features were proposed by the literature to incorporate the most diverse characteristics. Among three dimensional geometrical  ones one can state local descriptor SHOT \cite{tombari2010unique} and semi-global CVFH \cite{aldoma2011cad, aldoma2012our} descriptors. The Viewpoint Feature Histogram \ref{} - VFH -  captures in a single histogram the object's geometry by estimating the angular transformation between the normal of each of the its points and the standpoint from where it has been viewed. The interest of using such geometrical features is to explore the ambiguity created from objects' spatial symmetry, even if color and texture descriptors could enhance recognition.
-
-\subsubsection{Aspect-graph}
+\subsubsection{Multi-view object representation}
+\label{sec:aspectgraph}
 % Change name
-In order to represent objects in the three dimensional space, a model that captures both cartographic and intrinsic components is mandatory. Additionally, object visual characteristics are viewpoint-dependent, thus, requiring an additional treatment that correlates appearance and the necessary movement to transit between them. 
+We define a multi-view representation based on polar aspect-graphs in order to store objects in the memory of the robot. This representation fuses both the intrinsic characteristics of the views of objects as well as the necessary movement to change between them.
 
 \begin{figure}
  	\centering
 	\includegraphics[width=0.3\textwidth]{object_model.png}
-  	\caption{Représentation des objets par un modèle polaire}
+  	\caption{Multi-view object reprensentation based on a polar aspect graph}
 	\label{fig:graphe_polaire}
 \end{figure}
 
-\label{sec:rec_mono}
+For this representation, we used a polar referential with an origin centered at each object, illustrated in \ref{fig:graphe_polaire}. Its nodes represent the object aspect from a certain point of view, or in other words, the VFH histogram computed for this view, and transitions from nodes are angular displacements obtained by the robot odometry. The use of VFH instead of viewpoint invariant features is then justified by this type of reprensentation. Indeed, viewpoint information can bias the classification to search for eligible candidates in the database.
 
-The above requirements were translated into a polar referential, illustrated in \ref{fig:graphe_polaire} where nodes represent the object aspect from a certain point of view and transitions from nodes can be geometrically deducted. 
 
-Usually, visual features like SIFT are scale-variant as the image resolution plays an important role. Viewpoint information can bias the classification to search for eligible candidates in the database.
+\subsection {Odometry-Based Multi-view Recognition}
 
-%Finally, the ultimate definition of object used in this work is a cluster of points with a certain geometrical arrangement when viewed from a specific point of view.
+Moving the robot around the environment produce a series of object observations. The idea behind our system is to find consistency between this sequence of possibly mis-recognized objects given a known displacement. In other words, tracking the positions of objects and the robot provides us an estimation of the physical transition between two successive viewpoints which can reinforce candidates as they are consistent with the movements prediction. To this end, we use a probabilistic model based on hidden Markov models.
 
-\subsection{Object Classification}
+\subsubsection{Viewpoint recognition based on a single observation}
+\label{sec:singleviewpoint}
 
-The viewpoint recognition phase consist on finding the closest element in the database given a test feature to be matched. This classification problem could be solved by classic machine learning techniques. Nevertheless, the work from  Aldoma et al. \cite{Aldoma2012} suggest the use of a K-Nearest Neighbors, K-NN, with a chi-squared distance between histograms for classification. This classifier has the great advantage of having both classification and training stages extremely fast for the intended database size. 
+Regardless odometry and cartographic data, a single observation provides a VFH histogram for each segmented object. Determining the  viewpoint of the object consists on finding the closest histogram in the database. To this end, the work from  Aldoma et al. \cite{Aldoma2012} suggest the use of a K-Nearest Neighbors, based on a chi-squared distance between histograms. The K-NN classifier has the great advantage of having both classification and training stages extremely fast for the intended database size. Thus, the closest viewpoint $V$ from the observation $O$ is retrieved based on the following equation:
 
-%\begin{equation}
-%d(H_1, H_2) = \sum _I \frac{\left(H_1(I)-H_2(I)\right)^2}{H_1(I)}
-%\label{eq:chi-square}
-%\end{equation}
+\begin{equation}
+\begin{cases}
+  V = \underset{v_1 ...v_k} {\mathrm{argmin}} ~d(O,s_k)\\
+  d(O, s_k) = \sum _i{ \frac{\left\|H_O(i)-H_{s_k}(i)\right\|^2}{H_O(i)}}
+\end{cases}
+\label{eq:chi-square}
+\end{equation}
+
+with $H_p(i)$ the $i$th bin of the VFH histogram of a point cloud $p$ and $s_1, ...s_k$ are the different views available in the database. Moreover, the distance $d(O,s_k)$ between an observation $O$ and a view $V$ in the database can easily be turned into a probability $P(s_k|O)$
+
+\begin{equation}
+\mathbf{P}(O|s_k) = \frac{d(O, s_k)}{d_{max}}
+\label{eq:chi-prob}
+\end{equation}
+where $d_{max}$ is the maximum distance between two views of the database.
+
+% Reading ...
+
+\subsubsection{Object Tracking and Angular Displacement Estimation}
+
+The segmentation algorithm provides us at each new frame a set of point clouds (one for each object) and associated centroid position in the camera sensor reference frame. On the other hand, we receive a signal of the speed of the wheels of the robot that we convert into a displacement estimation in the absolute reference frame. Therefore, we can convert both the position of the robot and point cloud centroids to the absolute reference frame. Nevertheless, imprecision from communication delays between processing modules, segmentation and object centroid calculation call for a filtering method to refine the absolute position of the observed objects. Moreover, because of the segmentation restrictions and constant displacement of the robots, objects are alternatively present and absent from the input image.
+
+For that reason, we rely on a multi-tracker based on Kalman filtering that both refines the positions of each observed centroid and keeps an history of all observations and angular displacement for each tracked object from the beginning of the experiment. 
+
+The multi-object tracker is composed with a set of Kalman filters, each of them tracking a single object and being updated as soon as a new observation of the object is found. Briefly, the update rule is done as follows: For each new frame, the centroid of all segmented objects are converted to the absolute reference frame. Then, their positions are compared with the position of the last observation of each available tracker (initially, no tracker is available). If the position of a centroid is close enough to the last observation of a tracker, the tracker is updated using Kalman update equations, and the pointcloud is added to the tracker history. If a centroid does not match with any Kalman position, the centroid is considered as a new object and a dedicated tracker is initialized.
+
+This multi tracker relies on the two asumption that objects of the scene are static (although a dynamic model could be added) and that objects are separated of a minimum distance to avoid confusions between trackers.
+
+Between two consecutive views $k-1$ and $k$ of the same object, an angular displacement is estimated to store the tracked object history with a polar aspect-graph representation (See section \ref{sec:aspectgraph}). The angular displacement is obtained by the following equation 
+
+\begin{equation}
+\delta_{k-1,k} = atan(p_{k-1} - p_{obj}) - atan( p_{k} - p_{obj})
+\label{eq:triang}
+\end{equation}
+with $p_{k-1}$ and $p_{k}$ the absolute position of the robot for views $k-1$ and $k$, and $p_{obj}$ the absolute position of the centroid of the tracked object.
+
+
+\subsubsection {Odometry-reinforced viewpoint recognition}
+
+Based on the sequence of observations and estimated angular displacement obtained with the odometry, we use Hidden Markov Models to retrieve the closest sequence of views in the database. This sequence not only provides us a reinforced recognition of the object, but also an estimate of the successive views at which the object was seen. The definition of our approach is inspired from \cite{le2014global}.
+
+Given a track $T$ associated with $k$ observations ${O_1, ..., O_k}$ and $k-1$ angular transitions ${\delta_{1,2}, ..., \delta_{k-1,k}}$ between each of them, we model the viewpoint of the object from the robot sensor tracked by $T$ at time $k$ by a random variable $V_k$ that follows a Markovian process.
+
+Based on the notations used in \cite{rabiner1989tutorial}, we define our HMM as $\lambda = \left\{N,M,\Pi,A,B\right\}$, with $N$ the number of states, $M$ the number of observations, $\Pi$ the initial state vector, $A$ the transition probability matrix, and $B$ the observation probability. 
+
+In our case, a hidden state is associated with each viewpoints $s_i$, $0 < i \leq N$ in the database. $N$ is therefore the number of views in the database. As no prior assumption is made about the initial state of the system, we set $\Pi$ as a vector of length $N$ with equal probabilities.
+
+The state transition probability matrix $A = \left\{a_{i,j}\right\}$ is defined as 
+
+\begin{equation}
+a_{i,j} = \mathbf{P}( V_k = s_i | V_{k-1} = s_j )
+\label{eq:transmat1}
+\end{equation}
+or in other words, the probability of seeing view $s_i$ at observation $k$ given view $s_j$ at observation $k-1$. This probability  depends both on the angular displacement $\delta_{k-1,k}$ between the two observations, and the angular distances $\theta_{i,j}$ between views $s_i$ and $s_j$ in the database. Therefore, the transition probability is modified as each observation $k$ and defined as
+
+\begin{equation}
+    a_{i,j}^k =
+   \begin{cases}
+    1, & \text{if }  \theta_{i,j} < 2\delta_{k-1,k} \\
+		\epsilon_1, & \text{if }  Obj(i) = Obj(j)\\
+    0, & \text{otherwise}
+\end{cases}
+\label{eq:transmat}
+\end{equation}
+In practice, we consider that if  $s_i$ and $s_j$ belong to a different object, their angular distance is infinite.  A small probability $\epsilon_1$ is attributed to unlikely transitions between same object views to reinforce objects recognition rather than pose consistency. Transitions between views of different object are not allowed with zero probability of happening.
+
+Last the observation probability matrix $B = \left\{b_j\right\}$ is also constructed from each new observation. The distance from the K-NN is transformed in a probability distribution of the $K$ neighbors.
+
+\begin{equation}
+   b_{j}^k =  
+   \begin{cases}
+    \mathbf{P}(O_k|V_k=S_j), & \text{if }  s_j \in D_K \\
+    \epsilon_2, & \text{otherwise}
+\end{cases}
+	\label{eq:emismat}
+\end{equation}
+where $D_K$ is the set of $K$ nearest neighbors and $\mathbf{P}(O_k|V_k=S_j)$ is the converted histogram distance into probability, defined by equation \ref{eq:chi-prob}. If the state view $S_j$ is not among the $K$ nearest neighbors, a small probability $\epsilon_2$ is associated instead.
+
+Last, the Viterbi algorithm is used to find the most likely sequence of views $\mathbf{V}$ given the HMM $\lambda$, and the sequence of observations $\mathbf{O} = \left\{O_1, ... O_M\right\}$. 
+\begin{equation}
+\mathbf{V} = \underset{\mathbf{S}} {\mathrm{argmax}} ~\mathbf{P}(\mathbf{S}|\mathbf{O}, \lambda)
+\label{eq:viterbi1}
+\end{equation}
+
+The Viterbi path of the track with observations $\mathbf{O}$ then coincides with the sequence $\mathbf{V}$ of recognized view from $\mathbf{O}$. \ref{eq:viterbi}. The optimization is solved using the following equations
+
+\begin{equation}
+  \begin{array}{rcl}
+    V_{1,i} &=& b_k^1 \cdot \pi_i \\
+    V_{k,i} &=& \underset{j \in \left\{1, ... N\right\}} {\mathrm{max}} \left( b_k^i \cdot a_{j,i}^k \cdot V_{k-1,j}\right)
+  \end{array}
+	\label{eq:viterbi}
+\end{equation}
+where $\pi_i$ is the probability of initially being in $i$th state (from $\Pi$ vector), and $V_{k,i}$ is the probability that the most probable sequence based on the $k$ first observations ends up in state $s_i$. The most probable sequence is then retrieved by taking the sequence of $V$ of successive states used to compute $V_{M,i}$ so that
+\begin{equation}
+  \begin{array}{rcl}
+    s_i &=&\underset{s_j, j \in \left\{1, ... N\right\}} {\mathrm{Argmax}}(V_{M,j})
+  \end{array}
+\end{equation}
+
+
+\section{Experimental results}
+The proposed recognition system was deployed in a differential mobile robot, the Wifibot V2, embedded with a RGB-D camera, Asus Xtion Pro Live. The algorithm architecture were implemented over ROS using PCL and OpenNi2 libraries. 
+
+In the interest of validating the approach, the robot was initially taught aspects graphs from chosen objects and two sets of experiments were proposed to analyze the efficiency of the algorithm in real scenarios.
+
 
 \begin{figure}
 	\includegraphics[width=8.65cm]{mono_recon.png}
 	\caption{\textbf{Single-image recognition} - Object identification for two segmented objects - a computer monitor and a small electric fan. The red points represent the floor plan and the ignored white ones exceed the three meters threshold. One could also notice the infra-red shadows created by objects that possible can occlude others}
 	\label{fig:mono_recon}   
 \end{figure}
-
-
-\subsection{Multi-object Tracking}
-
-A tracking system is necessary to follow each of the objects on sight. Imprecisions from communication delays between processing modules, segmentation and object centroid calculation call for a multi-modal filtering method for estimating their absolute position. The proposed multi-tracker runs a Kalman filter for each object where each new observation either updates the nearest existing filter or creates a new one if the closest distance to the all filter's states is bigger than a threshold.
- 
-\subsection {Odometry-Based Multi-view Recognition}
-
-Moving the robot around the environment produce a series of object observations. The idea behind our system is to find consistency between this sequence of possibly mis-recognized objects given a known displacement. In orther words, odometry information can reinforce some viewpoint candidates as they are consistent with the movements prediction.
-
-\subsubsection {Hidden Markov Model}
-
-The first order Markov property hypotheses that a single view  and the robot movement is able to predict the next view of the object, allows the stochastic process of recognizing its views to be modeled as a Markovian process.
-
-Precisely, each hidden state correspond to a view of the object. The probability of transition between states, $\textbf{p}_{ij}^{t}$  is calculated each time a tracked object is observed accordingly to angular displacement of the robot, $\delta_{robot}$, equation \ref{eq:triang}, compared to the necessary displacement to change from view $i$ to $j$, mathematically represented in equation \ref{eq:transmat}. A small probability is attributed to improbable transitions between same object views to reinforce objects recognition rather than pose consistency. Transitions between views of different object are not allowed with zero probability of happening.
-
-\begin{equation}
-\delta_{robot} = atan(p_{initial} - p_{obj}) - atan( p_{final} - p_{obj})
-\label{eq:triang}
-\end{equation}
-
-\begin{equation}
-    \textbf{p}_{ij}^{t} = \mathbf{P}( X_t = \theta_i | X_{t-1} = \theta_j ) = 
-   \begin{cases}
-    1, & \text{if }  \theta_i - \theta_j < \delta_{angle} \\
-    \epsilon_1, & \text{otherwise}
-\end{cases}
-	\label{eq:transmat}
-\end{equation}
-
-The emission matrix is also constructed from each new observation. The distance from the K-NN is transformed in a probability distribution of the K neighbors.
-
-\begin{equation}
-    \textbf{p}_{i}^e =  
-   \begin{cases}
-    p_k, & \text{if }  i \in D_k \\
-    \epsilon_2, & \text{otherwise}
-\end{cases}
-	\label{eq:emismat}
-\end{equation}
-
-Where $D_k$ is the set of nearest neighbors and $p_k$ is the converted histogram distance into probability.
-
-\subsubsection{Algorithme de Viterbi}
-
-The viterbi algorithm is used to find the most likely path taking into account all possible states transitions and the probability of being recognized by single view pipeline. The viterbi path coincides with the sequence of recognized view for each observation. \ref{eq:viterbi}.
-
-\begin{equation}
-  \begin{array}{rcl}
-    V_{1,k} &=& \textbf{p}_{i}^e \cdot \pi_k \\
-    V_{t,k} &=& \max_{x \in S} \left(  \textbf{p}_{i}^e \cdot \textbf{p}_{ij}^{t} \cdot V_{t-1,x}\right)
-  \end{array}
-	\label{eq:viterbi}
-\end{equation}
-
-Ici, $V_{t,k}$ représente la probabilité que la séquence d'états la plus probable finisse dans l'état $k$, ayant généré les observation à l'instant $t$, tandis que $\pi_i$ représente la probabilité initiale de se retrouver en chaque état. Pour retrouver le chemin de Viterbi, il suffit de trouver le maximum de $V_{t,k}$ :
-
-\begin{equation}
-  \begin{array}{rcl}
-    x_T &=& \arg\max_{x \in S} (V_{T,x})
-  \end{array}
-\end{equation}
-
-
-\section{Experimental results}
-The proposed recognition system was deployed in a differential mobile robot, Wifibot V2, embedded with a RGB-D camera, Asus Xtion Pro Live. The algorithm architecture were implemented over ROS using PCL and OpenNi2 libraries. 
-
-In the interest of validating the approach, the robot was initially taught aspects graphs from chosen objects and two sets of experiments were proposed to analyze the efficiency of the algorithm in real scenarios.
  
 %In order to succeed, the robot must face inexistent viewpoints due to a sparse database, blurred images from motion and object spatial symmetry
 
@@ -239,61 +259,46 @@ First, twenty objects varying in size and form (monitor, boxes, chairs, trashcan
 % Le mal fonctionnement du tracking a fait qu'on a des arcs de cercle au tour des objects qui commencent de positions aléatoires. Dans le cas où le tracking a marché on a seulement quatre cercles complets
 The first experiment consist in a performance comparison between the single image and odometry-base recognition techniques. In other words, this comparison attest whether the proposed architecture is interesting or not, since having the same or worst performance by the cost of adding a complex post-processing and tracking modules is not interesting.
 
-Technically, each object was partially circled by the robot from at least four random initial positions at $0.35 \pm 0.1 m/s$. The robot recorded for each run between 5 and 30 frames at different viewpoints of the object, perhaps inexistent in the database, and try to recognize the object and estimate its pose using both recognition algorithms.
+Technically, each object was partially circled by the robot from at least four random initial positions at speed of $0.35 \pm 0.1 m/s$. The robot recorded for each run between 5 and 30 frames at different viewpoints of the object, perhaps inexistent in the database, and try to recognize them using both recognition algorithms.
 
 \begin{figure}
 	\includegraphics[width=8.65cm]{comp.png}
 	
-	\caption{\textbf{Résultat de l'évaluation} - Les courbes en pointillés représentent la reconnaissance basée sur une seule image (mono-vue), tandis que les courbes pleines correspondent au système multi-vues. Avec un nombre réduit d'observations, la reconnaissance mono-vue tend à être légèrement plus performante. L'écart se creuse à mesure que ne nombre d'observations augmentent, jusqu'à un écart de 33 \% une fois le tour complet de l'objet effectué, soit 92\% de réussite pour l'estimation de l'objet et 74 \% pour l'estimation de l'orientation. }		
+	\caption{\textbf{Evaluation result} - Dashed curves represent object and view recognition on single image basis. Solid ones are obtained based on multi-view estimation. When the number of observation is low, the mono-view recognition tends to be slightly better than multi-view. The gap between mono and multi-view recognition increases with the number of observations. With 25 or more observations, the multi-view  recognition outperforms the mono-view by 33\%  with 92\% of correct recognition for object recognition and 74 \% for view estimation. }		
 	\label{fig:comp}
 \end{figure}
 
+A typical experiment is illustrated in Figure \ref{fig:resultats_expe}. The first row represents the image sequence segmented by the robot for a given object at each new frame. This is the object to be recognized. The second line, is the viewpoint recognition based on a single image, without using any odometric information. The only measure used to recognize the view is provided by the distance to the nearest neighbor in the database (see section \ref{sec:singleviewpoint}). Interesting is to notice that the rotation invariance of the VFH descriptor actually tricks the view estimation by taking the enantiomorph correspondent in the first red square. In addition, the back of the penguin is a large and almost flat surface. It is, therefore, considered as background wall by the segmentation module and almost entirely removed. The resulting point cloud is insufficient to accurately characterize the view, thus leading to wrong view detection in the blue squares. The last row represent the final output of the Viterbi algorithm. As expected, the combination of VFH-based view estimation and odometry is able to retrieve the correct sequence of views.
+
 \begin{figure*}
 	\includegraphics[height=6cm]{hmm_example.png}
-			\caption{\textbf{Expriment typique} - Reconnaissance multi-vue corrige des ambiguïtés malgré la mauvaise segmentation lors de la création de la base.}
+			\caption{\textbf{Typical experiment} - The HMM refinement makes self correction of irrelevant views estimation, even when objects were badly segmented during the database creation.}
 	\label{fig:resultats_expe}
 \end{figure*}
 
 \subsection{Multi-object recognition}
-In a second evaluation, concurrently with the recognition efficiency, the multi-tracking capabilities were put into test. 
+In a second evaluation, concurrently with the recognition efficiency, the multi-tracking capabilities were put into test. Tracking objects correctly is extremely important for the well functioning of the system.
+
 \begin{figure}
-	\includegraphics[width=8.65cm]{map.png}
-	\caption{\textbf{Résultat du suivi multi-cibles} - Les points rouges correspondent aux centroïdes des objets segmentés. Chaque croix de couleur représente une estimation de position d'un filtre de Kalman, avec une couleur par filtre. En théorie, un filtre devrait être associé à chaque objet. En noir la trajectoire du robot au cours du temps.}	
+	\includegraphics[width=8.65cm]{map.pdf}
+	\caption{\textbf{Mutli-objects tracking results} - Red dots corresponds to segmented objects centroids. Each color cross stands for the position estimation from a tracker. Each filter is associated with a unique color. Theoretically, a single filter should be associated with a single object. Black dots represent the trajectory of the robot during the experiment.}	
 	\label{fig:multi_map}
 \end{figure}
 
 
-La difficulté de l'évaluation vient, premièrement, du fait que la base de donnée a été réalisée avec très peu de vues, ce qui donne lieu à de mauvaises reconnaissance mono-vue lorsque le point de vue observé se situe entre deux vues de la base de données. De plus, la vitesse de déplacement peut générer des images plus floues lors des acquisitions et la modification de l'angle de la caméra\footnote{L'angle entre la base et la tête de la caméra Asus Xtion est facilement modifié.} apportent un obstacle en plus pour le \textit{matching} de descripteurs dans le classificateur K-NN.
+The experiment resides in moving the robot around a room full of objects, ensuring it visualize them from different perspectives. This scenario is a much more complex than the first one as moving in a room with many elements,likely occlude each other, thus leading to incomplete point clouds and biased feature descriptors. Even if tracking was correct in most cases,  the result was a drop in recognition performance for both algorithms.
 
-Un expérience typique est illustrée dans l'image \ref{fig:resultats_expe} :
-
-
-La première ligne correspond à la séquence d'images vues par le robot à chaque instant de temps, et donc, l'objet à être reconnu. La seconde ligne, donnée par l'algorithme de reconnaissance, équivaut à la vue la plus probable de l'objet reconnue par le K-plus proches voisins. Il est intéressant remarquer que l'invariance à rotation du descripteur trompe l'estimation de l'orientation en prenant son correspond énantiomorphe dans le premier carré rouge. Autrement, le dos du pinguin étant une grande surface presque plane, il est partiellement retiré par l'étape de segmentation. Ainsi, le nuage de points résultant de ce point de vue n'est pas suffisamment complet pour caractériser correctement l'objet, ce qui induit une mauvaise reconnaissance dans le carré bleu. Au final, on remarque que le traitement apporté par la chaîne de Markov cachée permet de corriger les problèmes d'une base de donnée relativement sparse avec des possibles erreus de segmentation, permettant la correction simultanée de la reconnaissance de l'objet et de son orientation en ligne. 
-
-Le résultat de l'évaluation peut être représenté sous forme d'une courbe : le nombre d'observations pour un même objet en abscisse, par rapport aux pourcentage de reconnaissance d'objet et de vue, pour les reconnaissance mono et multi-vues.
-
-
-
-La courbe de la figure \ref{fig:comp} permet de conclure, tout d'abord, que l'algorithme de reconnaissance multi-vues est plus performant que sa correspondante mono-vue lorsque le nombre d'observations augmente suffisamment.\footnote{Le fait que la reconnaissance mono-vue chute avec le nombre de vues peut être liée au fait que pour les premières secondes de l'expérience, le robot est immobile et correctement placé. Lors du déplacement du robot, les prises de vues sont globalement moins bonnes et font chuter le taux de reconnaissance.}. Dans un deuxième temps, on constate que l'estimation de l'orientation de l'objet est plus difficile à estimer que sa reconnaissance, que cela soit pour la reconnaissance mono-vue ou multi-vues.
-
-
-%\subsection{Robustesse à l'occlusion}
-
-\subsection{Suivi et reconnaissance multi-cibles}
-
-La deuxième expérimentent consiste à placer des objets présents dans la base de données dans une pièce et conduire le robot en faisant en sorte qu'il les regarde  sous plusieurs points de vues différents. Ce scénario est beaucoup plus complexe que celui d'avant. D'abord les objets s'occultent les uns les autres, donnant lieux à de mauvaises segmentations. Ensuite, le suivi des objets est beaucoup plus complexe, car des objets proches peuvent être confondus.
-
-La carte finale donnée par l'algorithme et localisant le robot ainsi que les objets dans le repère absolu est représentée à la figure \ref{fig:multi_map}. Une photo de la pièce aves les objets disposés comme dans l'expérience est affichée en \ref{fig:exp2}. %\ref{fig:exp2}.
-
-
-
-\begin{figure*}
-	\includegraphics[width=15cm]{multi_recon2.png}
+\begin{figure}
+	\includegraphics[width=9cm]{multi_recon3.png}
 	\caption{\textbf{Reconnaissance Multi-cible} - Quatre des cinq objets présents dans la scène ont été correctement reconnus avec une estimation d'orientation raisonnable. Le première objet (une personne) était trop près du ventilateur, les deux ont donc été confondus dans le multi-tracking. }
 	\label{fig:recon}
-\end{figure*}
+\end{figure}
 
-Les résultats de l'expérience montrent que le système fonctionne encore, même dans des cas beaucoup plus complexes. On notera toutefois une chute des taux de reconnaissance. Quelques améliorations proposées dans la section suivante pourraient être utiles pour rendre le système plus robuste:  
+\section{Conclusion}
+
+The proposed method focus on integrating odometry information to boost recognition efficiency, based on the intuition that different perspectives of the object and analysis of transitions between them provides unexplored informations. The results from practical experiments shows that the odometry-based algorithm outperforms the classic one in both object and viewpoint recognition, strengthening the interest in a more sophisticated pipeline. Moreover, the approach has the advantage of not being platform specific, which means it could be implemented in any mobile system equipped with a RGB-D sensor and capable of measuring its position. However, the algorithm is quite sensitive to bad segmentation, specially if a object is divided into two disjoint clusters. Errors due to occlusion could be reduced using semi-global descriptors and a more exigent segmentation. Future work consist in recognizing moving objects, where the recognition feeds the tracking module with the  moving dynamics of the target, and including object transformation by allowing state transitions to views of other objects \footnote{i.e. human moving towards a chair and sitting down, creating a new object human+chair}. A more immediate challenge is to create the object database on the fly once a new observation is not encountered on it, according to a distance threshold.
+
+%A relatively general object model capable of representing a huge variety of everyday objects. 
 
 
 \bibliographystyle{plain}

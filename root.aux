@@ -6,49 +6,62 @@
 \@writefile{toc}{\contentsline {section}{\numberline {II}PROPOSED APPROACH}{1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {II-A}General archtecture}{1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {II-B}Object Segmentation}{1}}
+\citation{}
+\citation{zhou2014learning}
 \citation{tombari2010unique}
 \citation{aldoma2011cad,aldoma2012our}
+\citation{rusu2009fast,rusu2010fast}
 \citation{Aldoma2012}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces General achitecture of the system}}{2}}
 \newlabel{fig:architecture}{{1}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {II-C}Object representation}{2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {II-C}Object Representation}{2}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {II-C.1}Features}{2}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {II-C.2}Aspect-graph}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Représentation des objets par un modèle polaire}}{2}}
+\newlabel{sec:aspectgraph}{{II-C.2}{2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {II-C.2}Multi-view object representation}{2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Multi-view object reprensentation based on a polar aspect graph}}{2}}
 \newlabel{fig:graphe_polaire}{{2}{2}}
-\newlabel{sec:rec_mono}{{II-C.2}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {II-D}Object Classification}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Single-image recognition} - Object identification for two segmented objects - a computer monitor and a small electric fan. The red points represent the floor plan and the ignored white ones exceed the three meters threshold. One could also notice the infra-red shadows created by objects that possible can occlude others}}{3}}
-\newlabel{fig:mono_recon}{{3}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {II-E}Multi-object Tracking}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {II-F}Odometry-Based Multi-view Recognition}{3}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {II-F.1}Hidden Markov Model}{3}}
-\newlabel{eq:triang}{{1}{3}}
-\newlabel{eq:transmat}{{2}{3}}
-\newlabel{eq:emismat}{{3}{3}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {II-F.2}Algorithme de Viterbi}{3}}
-\newlabel{eq:viterbi}{{4}{3}}
-\@writefile{toc}{\contentsline {section}{\numberline {III}Experimental results}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-A}Object Database}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-B}Odometry Contribution}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {II-D}Odometry-Based Multi-view Recognition}{2}}
+\newlabel{sec:singleviewpoint}{{II-D.1}{2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {II-D.1}Viewpoint recognition based on a single observation}{2}}
+\citation{le2014global}
+\citation{rabiner1989tutorial}
+\newlabel{eq:chi-square}{{1}{3}}
+\newlabel{eq:chi-prob}{{2}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {II-D.2}Object Tracking and Angular Displacement Estimation}{3}}
+\newlabel{eq:triang}{{3}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {II-D.3}Odometry-reinforced viewpoint recognition}{3}}
+\newlabel{eq:transmat1}{{4}{3}}
+\newlabel{eq:transmat}{{5}{3}}
+\newlabel{eq:emismat}{{6}{4}}
+\newlabel{eq:viterbi1}{{7}{4}}
+\newlabel{eq:viterbi}{{8}{4}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Experimental results}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III-A}Object Database}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Single-image recognition} - Object identification for two segmented objects - a computer monitor and a small electric fan. The red points represent the floor plan and the ignored white ones exceed the three meters threshold. One could also notice the infra-red shadows created by objects that possible can occlude others}}{4}}
+\newlabel{fig:mono_recon}{{3}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Evaluation result} - Dashed curves represent object and view recognition on single image basis. Solid ones are obtained based on multi-view estimation. When the number of observation is low, the mono-view recognition tends to be slightly better than multi-view. The gap between mono and multi-view recognition increases with the number of observations. With 25 or more observations, the multi-view recognition outperforms the mono-view by 33\% with 92\% of correct recognition for object recognition and 74 \% for view estimation. }}{4}}
+\newlabel{fig:comp}{{4}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III-B}Odometry Contribution}{4}}
 \bibstyle{plain}
 \bibdata{rapport}
 \bibcite{Aldoma2012}{1}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Résultat de l'évaluation} - Les courbes en pointillés représentent la reconnaissance basée sur une seule image (mono-vue), tandis que les courbes pleines correspondent au système multi-vues. Avec un nombre réduit d'observations, la reconnaissance mono-vue tend à être légèrement plus performante. L'écart se creuse à mesure que ne nombre d'observations augmentent, jusqu'à un écart de 33 \% une fois le tour complet de l'objet effectué, soit 92\% de réussite pour l'estimation de l'objet et 74 \% pour l'estimation de l'orientation. }}{4}}
-\newlabel{fig:comp}{{4}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Résultat du suivi multi-cibles} - Les points rouges correspondent aux centroïdes des objets segmentés. Chaque croix de couleur représente une estimation de position d'un filtre de Kalman, avec une couleur par filtre. En théorie, un filtre devrait être associé à chaque objet. En noir la trajectoire du robot au cours du temps.}}{4}}
-\newlabel{fig:multi_map}{{6}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-C}Multi-object recognition}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-D}Suivi et reconnaissance multi-cibles}{4}}
-\@writefile{toc}{\contentsline {section}{References}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Expriment typique} - Reconnaissance multi-vue corrige des ambiguïtés malgré la mauvaise segmentation lors de la création de la base.}}{5}}
-\newlabel{fig:resultats_expe}{{5}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Mutli-objects tracking results} - Red dots corresponds to segmented objects centroids. Each color cross stands for the position estimation from a tracker. Each filter is associated with a unique color. Theoretically, a single filter should be associated with a single object. Black dots represent the trajectory of the robot during the experiment.}}{5}}
+\newlabel{fig:multi_map}{{6}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III-C}Multi-object recognition}{5}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Conclusion}{5}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces \textbf  {Reconnaissance Multi-cible} - Quatre des cinq objets présents dans la scène ont été correctement reconnus avec une estimation d'orientation raisonnable. Le première objet (une personne) était trop près du ventilateur, les deux ont donc été confondus dans le multi-tracking. }}{5}}
 \newlabel{fig:recon}{{7}{5}}
+\@writefile{toc}{\contentsline {section}{References}{5}}
 \bibcite{aldoma2012our}{2}
 \bibcite{aldoma2011cad}{3}
 \bibcite{caron2014neural}{4}
 \bibcite{dai2006prospects}{5}
 \bibcite{tabletop}{6}
-\bibcite{rusu2009fast}{7}
-\bibcite{tombari2010unique}{8}
+\bibcite{le2014global}{7}
+\bibcite{rabiner1989tutorial}{8}
+\bibcite{rusu2009fast}{9}
+\bibcite{rusu2010fast}{10}
+\bibcite{tombari2010unique}{11}
+\bibcite{zhou2014learning}{12}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Typical experiment} - The HMM refinement makes self correction of irrelevant views estimation, even when objects were badly segmented during the database creation.}}{6}}
+\newlabel{fig:resultats_expe}{{5}{6}}
