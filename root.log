@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.8.18)  16 SEP 2015 07:08
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.8.18)  16 SEP 2015 07:31
 entering extended mode
 **root.tex
 (C:\Users\-Luigi\Desktop\ICRA\root.tex
@@ -365,7 +365,7 @@ Package pdftex.def Info: genarc.pdf used on input line 63.
  [1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
-] [2 <C:/Users/-Luigi/Desktop/ICRA/genarc.pdf>] <object_model.pdf, id=53, 120.4
+] [2 <C:/Users/-Luigi/Desktop/ICRA/genarc.pdf>] <object_model.pdf, id=61, 120.4
 5pt x 72.2702pt>
 File: object_model.pdf Graphic file (type pdf)
  <use object_model.pdf>
@@ -374,32 +374,32 @@ Package pdftex.def Info: object_model.pdf used on input line 136.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 155.
 
-<mono_recon.png, id=54, 640.3122pt x 342.5598pt>
+<mono_recon.png, id=62, 640.3122pt x 342.5598pt>
 File: mono_recon.png Graphic file (type png)
  <use mono_recon.png>
 Package pdftex.def Info: mono_recon.png used on input line 174.
 (pdftex.def)             Requested size: 246.11615pt x 131.66899pt.
  [3 <C:/Users/-Luigi/Desktop/ICRA/object_model.pdf> <C:/Users/-Luigi/Desktop/IC
-RA/mono_recon.png>] <hmmexample.pdf, id=75, 865.07193pt x 229.0959pt>
+RA/mono_recon.png>] <hmmexample.pdf, id=83, 865.07193pt x 229.0959pt>
 File: hmmexample.pdf Graphic file (type pdf)
 
 <use hmmexample.pdf>
 Package pdftex.def Info: hmmexample.pdf used on input line 271.
 (pdftex.def)             Requested size: 504.96286pt x 133.72786pt.
- [4] <recog_plot.pdf, id=80, 635.25331pt x 402.54391pt>
+ [4] <recog_plot.pdf, id=88, 635.25331pt x 402.54391pt>
 File: recog_plot.pdf Graphic file (type pdf)
 
 <use recog_plot.pdf>
 Package pdftex.def Info: recog_plot.pdf used on input line 295.
 (pdftex.def)             Requested size: 246.11615pt x 155.95343pt.
- <map.pdf, id=81, 334.04799pt x 231.26399pt>
+ <map.pdf, id=89, 334.04799pt x 231.26399pt>
 File: map.pdf Graphic file (type pdf)
  <use map.pdf>
 Package pdftex.def Info: map.pdf used on input line 302.
 (pdftex.def)             Requested size: 246.11615pt x 170.38808pt.
 
 [5 <C:/Users/-Luigi/Desktop/ICRA/hmmexample.pdf> <C:/Users/-Luigi/Desktop/ICRA/
-recog_plot.pdf>] <multi_recon2.pdf, id=105, 502.99919pt x 764.61661pt>
+recog_plot.pdf>] <multi_recon2.pdf, id=113, 502.99919pt x 764.61661pt>
 File: multi_recon2.pdf Graphic file (type pdf)
 
 <use multi_recon2.pdf>
@@ -438,9 +438,9 @@ TeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
 .pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program
  Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/urw/times/utmri8a.pfb>
-Output written on root.pdf (7 pages, 2038449 bytes).
+Output written on root.pdf (7 pages, 2042157 bytes).
 PDF statistics:
- 184 PDF objects out of 1000 (max. 8388607)
+ 192 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
