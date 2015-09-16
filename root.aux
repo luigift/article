@@ -22,25 +22,27 @@
 \citation{le2014global}
 \@writefile{toc}{\contentsline {section}{\numberline {I}INTRODUCTION}{1}}
 \citation{caron2014neural}
-\citation{rusu2010fast}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces General achitecture of the system}}{2}}
+\newlabel{fig:architecture}{{1}{2}}
 \@writefile{toc}{\contentsline {section}{\numberline {II}PROPOSED APPROACH}{2}}
 \newlabel{}{{II}{2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {II-A}Overview}{2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {II-B}Object Segmentation}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Multi-view object reprensentation based on a polar aspect graph}}{2}}
-\newlabel{fig:graphe_polaire}{{2}{2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {II-C}Object Representation}{2}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {II-C.1}Features}{2}}
-\newlabel{sec:aspectgraph}{{II-C.2}{2}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {II-C.2}Multi-view object representation}{2}}
+\citation{rusu2010fast}
 \citation{Aldoma2012}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces General achitecture of the system}}{3}}
-\newlabel{fig:architecture}{{1}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Multi-view object reprensentation based on a polar aspect graph}}{3}}
+\newlabel{fig:graphe_polaire}{{2}{3}}
+\newlabel{sec:aspectgraph}{{II-C.2}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {II-C.2}Multi-view object representation}{3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {II-D}Object Recognition based on multiple views and their relative positions}{3}}
 \newlabel{sec:singleviewpoint}{{II-D.1}{3}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {II-D.1}Viewpoint recognition based on a single observation}{3}}
 \newlabel{eq:chi-square}{{1}{3}}
 \newlabel{eq:chi-prob}{{2}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Result of object segmentation and identification} The red points represent the floor plane and the ignored white ones exceed the three meters threshold. One could also notice the infra-red shadows created by objects, potentially leading to occlusions}}{3}}
+\newlabel{fig:mono_recon}{{3}{3}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {II-D.2}Object Tracking and Angular Displacement Estimation}{3}}
 \citation{le2014global}
 \citation{rabiner1989tutorial}
@@ -53,22 +55,20 @@
 \newlabel{eq:viterbi1}{{7}{4}}
 \newlabel{eq:viterbi}{{8}{4}}
 \@writefile{toc}{\contentsline {section}{\numberline {III}Experimental results}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-A}Object Database}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-B}Odometry Contribution}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Typical experiment} - The HMM refinement makes self correction of irrelevant views estimation, even when objects were badly segmented during the database creation.}}{5}}
+\newlabel{fig:resultats_expe}{{4}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III-A}Object Database}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III-B}Odometry Contribution}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Numerical results evaluation} - Evolution of the correct recognition rate versus the number of views. Both for objects and view recognition, the multi-view approach outperforms the mono-view approach.}}{5}}
+\newlabel{fig:comp}{{5}{5}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {III-C}Multi-object recognition}{5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Numerical results evaluation} - Evolution of the correct recognition rate versus the number of views. Both for objects and view recognition, the multi-view approach outperforms the mono-view approach.}}{5}}
-\newlabel{fig:comp}{{4}{5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Result of object segmentation and identification} The red points represent the floor plane and the ignored white ones exceed the three meters threshold. One could also notice the infra-red shadows created by objects, potentially leading to occlusions}}{5}}
-\newlabel{fig:mono_recon}{{5}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Conclusion}{5}}
 \bibstyle{plain}
 \bibdata{rapport}
 \bibcite{Aldoma2012}{1}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Typical experiment} - The HMM refinement makes self correction of irrelevant views estimation, even when objects were badly segmented during the database creation.}}{6}}
-\newlabel{fig:resultats_expe}{{3}{6}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Mutli-objects tracking results} - Red dots corresponds to segmented objects centroids. Each color cross stands for the position estimation from a tracker. Each filter is associated with a unique color. Theoretically, a single filter should be associated with a single object. Black dots represent the trajectory of the robot during the experiment.}}{6}}
 \newlabel{fig:multi_map}{{6}{6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces \textbf  {Example of multi-view recognition in a scene with five objects.}}}{6}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Conclusion}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces \textbf  {Example of multi-view recognition in a scene with five objects - } For this run, odometry-based recognition got 80\% of the objects and 42 \% of the views right, the mono-view got 34\% for both, and the multi got 80\% right for object classification}}{6}}
 \newlabel{fig:recon}{{7}{6}}
 \bibcite{aldoma2012our}{2}
 \bibcite{aldoma2011cad}{3}
